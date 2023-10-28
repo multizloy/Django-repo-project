@@ -8,6 +8,10 @@
 
 <form action="" method='post'>
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
+    {% comment %} <form action="home">
+        <input type="submit" value="Submit">
+    </form> {% endcomment %}
+    <button type="submit">Login</button>
 </form>
 {% endblock content %}

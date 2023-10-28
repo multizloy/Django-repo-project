@@ -7,19 +7,25 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
-def registerPage(request):
-    form = UserCreationForm()
+class RegisterView(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/register.html"
 
-    if request.method == "post":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("main/home.html")
-        else:
-            return redirect("registration/register.html")
-    else:
-        context = {"form": form}
-        return render(request, "registration/register.html", context)
+
+# def registerPage(request):
+#     form = UserCreationForm()
+
+#     if request.method == "POST":
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("login")
+#         else:
+#             return redirect("registration/register.html")
+#     else:
+#         context = {"form": form}
+#         return render(request, "registration/register.html", context)
 
 
 # def register(request):
@@ -36,10 +42,11 @@ def registerPage(request):
 #         return render(request, "registration/register.html")
 
 
-def login(request):
-    pass
+# def login(request):
+#     context = {}
+#     return render(request, "registration/register.html", context)
 
 
-def logout(request):
-    logout(request)
-    return redirect("main/home.html")
+# def logout(request):
+#     logout(request)
+#     return redirect("main/home.html")

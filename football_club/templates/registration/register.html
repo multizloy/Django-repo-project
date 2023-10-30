@@ -1,15 +1,18 @@
 {% extends "basic/base.html" %}
 
 {% block title %} <title>Register</title> {% endblock title %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-
+{% if user.is_authenticated%}
+<a href="{% url 'main:home'%}"></a>
+{% else %}
 <form method="post">
-    <h1>Register</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Register</button>
-
+    <div class="container-sm" >
+        <h1>Register</h1>
+        {% csrf_token %}
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
 </form>
-
+{% endif %}
 {% endblock content %}

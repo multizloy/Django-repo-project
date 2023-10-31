@@ -9,23 +9,10 @@
     {% block title %} <title>Главная страница</title> {% endblock title %}
 <body>
     {% include "basic/navbar.html" %}
+
     {% block content %}
     {% endblock content %}
 
-    <nav class="list-pages">
-        {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.has_previous_page_number}}">&lt;</a>
-        {% endif %}
-        {% for p in paginator.page_range %}
-        {% if page_obg.number == p%}
-        <li class="page-num page-num-selected"> {{ p}}</li>
-        {% else %}
-        <a href="?page={{p}}">{{ p }}</a>
-    </nav>
-    {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.has_next_page_number}}">&lt;</a>
-    {% endif %}
+
 </body>
 </html>

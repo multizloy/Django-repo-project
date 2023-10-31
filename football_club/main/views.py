@@ -23,9 +23,8 @@ def store(request):
 
 class Post_News_List(generic.ListView):
     form_class = Post_News_Form
-    template_name = "main/home.html"
-    context_object_name = "post"
-    paginate_by = 3
+    template_name = "main/list_post.html"
+    context_object_name = "posts"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,5 +38,33 @@ class Post_News_List(generic.ListView):
 class Create_Post_View(LoginRequiredMixin, generic.CreateView):
     template_name = "main/add_post.html"
     form_class = Post_News_Form
-    success_url = reverse_lazy("main:home")
+    success_url = reverse_lazy("main:list-post")
     login_url = reverse_lazy("registration:login")
+
+
+class View_Post_View(LoginRequiredMixin, generic.DetailView):
+    template_name = "main/view_post.html"
+    form_class = Post_News_Form
+    context_object_name = "posts"
+
+    success_url = reverse_lazy("main:view-post")
+    login_url = reverse_lazy("registration:login")
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.is_authenticated:
+            queryset = PostNews.objects.all()
+
+        return queryset
+
+
+class Update_Post_View(LoginRequiredMixin, generic.UpdateView):
+    template_name = "main/update_post.html"
+    form_class = Post_News_Form
+    context_object_name = "posts"
+    success_url = reverse_lazy("main:list-post")
+
+    def get_queryset(self) -> QuerySet[Any]:
+        user = self.request.user
+        return PostNews.objects.all()

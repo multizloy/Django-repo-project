@@ -1,0 +1,24 @@
+{% extends "basic/base.html" %}
+
+
+{% block title %} <title>Новости</title>  {% endblock title %} 
+
+{% block content %}
+ 
+
+<div class="p-4 lg:w-1/2 md:w-full">
+    <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+
+        <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> {{ posts.title }} </h2> 
+            <p class="leading-relaxed text-base">{{ posts.text}}</p> 
+            <a href="{% url 'main:update-post' posts.pk %}"
+            class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Update
+            Details</a>
+        </div>
+    </div>
+</div> 
+
+
+
+{% endblock content %}

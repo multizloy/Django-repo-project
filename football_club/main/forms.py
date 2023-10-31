@@ -7,7 +7,6 @@ class Post_News_Form(forms.ModelForm):
     class Meta:
         model = PostNews
         fields = (
-            "author",
             "title",
             "text",
         )

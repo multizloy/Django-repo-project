@@ -22,3 +22,19 @@ class MyUserCreationForm(UserCreationForm):
             "first_name",
             "last_name",
         )
+
+
+class User_Profile_Update_Form(forms.ModelForm):
+    email_address = forms.EmailField(required=True)
+
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+        )

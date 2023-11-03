@@ -29,7 +29,10 @@
           </a>
 
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'main:dashboard' %}">Личный Кабинет</a></li>
+           
+            {{profiles.pk}}
+            <li><a class="dropdown-item" href="{% url 'registration:dashboard' %}">Личный Кабинет</a></li>
+            
             {% if user.is_footballer or user.is_admin or user.is_trainer %}
             <li><a class="dropdown-item" href="#">Футболистам</a></li>
             {% endif %}

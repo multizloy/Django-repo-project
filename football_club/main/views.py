@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 
 from django.views import generic
-from .models import PostNews
+
 from .forms import Post_News_Form
 from .mixin import LoginRequiredMixin
+from .models import PostNews
 
 # Create your views here.
 
@@ -80,17 +81,3 @@ class Delete_Post_View(LoginRequiredMixin, generic.DeleteView):
 
 
 # Создадим Личный кабинет
-
-
-class Dashboard(generic.ListView):
-    form_class = Post_News_Form
-    template_name = "main/dashboard.html"
-    context_object_name = "dashboards"
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-    def get_queryset(self):
-        # user = self.request.user
-        return PostNews.objects.filter()

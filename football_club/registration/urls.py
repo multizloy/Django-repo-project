@@ -1,7 +1,5 @@
 from django.urls import path, include, reverse_lazy
-from . import views
 
-from .views import CreateRegisterView
 
 # from .views import RegisterView
 from django.contrib.auth.views import (
@@ -12,6 +10,7 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView,
 )
+from .views import *
 
 app_name = "registration"
 
@@ -42,4 +41,5 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     # path("", include("django.contrib.auth.urls")),
+    path("dashboard/", Dashboard.as_view(), name="dashboard"),
 ]

@@ -6,6 +6,8 @@ from .views import (
     Create_Post_View,
     View_Post_View,
     Update_Post_View,
+    Delete_Post_View,
+    Dashboard,
 )
 
 # from .views import post_news
@@ -20,4 +22,8 @@ urlpatterns = [
     path("add-post/", Create_Post_View.as_view(), name="add-post"),
     path("list-post/<int:pk>/", View_Post_View.as_view(), name="view-post"),
     path("list-post/<int:pk>/update/", Update_Post_View.as_view(), name="update-post"),
+    path(
+        "delete-post/<int:pk>/delete/", Delete_Post_View.as_view(), name="delete-post"
+    ),
+    path("dashboard/", Dashboard.as_view(), name="dashboard"),
 ]

@@ -16,7 +16,7 @@ def home(request):
     return render(request, "main/home.html")
 
 
-@login_required(login_url="main:home")
+@login_required(login_url="registration:login")
 def store(request):
     return render(request, "main/store.html")
 
@@ -48,7 +48,6 @@ class View_Post_View(LoginRequiredMixin, generic.DetailView):
     context_object_name = "posts"
 
     success_url = reverse_lazy("main:view-post")
-    login_url = reverse_lazy("registration:login")
 
     def get_queryset(self):
         user = self.request.user
@@ -64,7 +63,34 @@ class Update_Post_View(LoginRequiredMixin, generic.UpdateView):
     form_class = Post_News_Form
     context_object_name = "posts"
     success_url = reverse_lazy("main:list-post")
+    login_url = reverse_lazy("registration:login")
 
     def get_queryset(self) -> QuerySet[Any]:
-        user = self.request.user
         return PostNews.objects.all()
+
+
+class Delete_Post_View(LoginRequiredMixin, generic.DeleteView):
+    template_name = "main/delete_post.html"
+    queryset = PostNews.objects.all()
+    context_object_name = "posts"
+    success_url = reverse_lazy("main:list-post")
+
+    def get_queryset(self):
+        return PostNews.objects.all()
+
+
+# Создадим Личный кабинет
+
+
+class Dashboard(generic.ListView):
+    form_class = Post_News_Form
+    template_name = "main/dashboard.html"
+    context_object_name = "dashboards"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        # user = self.request.user
+        return PostNews.objects.filter()

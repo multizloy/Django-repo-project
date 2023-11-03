@@ -14,10 +14,14 @@
     <div class="container-lg" >
         <h1>Login</h1>
         {{ form|crispy }}
+        <br>
         <button type="submit" class="btn btn-primary">Login</button>
+        <a href="{% url 'registration:password-reset' %}">Забыли пароль?</a>
+        <br>
+        <p>У вас нет аккаунта? <a href="{% url 'registration:register' %}">Зарегестрируйтесь!</a> </p>
      </div>
     
-    
+     
 
     
 </form>

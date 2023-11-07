@@ -23,7 +23,7 @@ class Footballer(models.Model):
     role = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.username
+        return self.user.role
 
 
 class Trainer(models.Model):

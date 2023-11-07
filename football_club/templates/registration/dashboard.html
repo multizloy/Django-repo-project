@@ -4,8 +4,51 @@
 
 {% block content %}
 <h5>Личный кабинет</h5>
+<div class="p-4 lg:w-1/2 md:w-full">
+    <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
 
-<form method="post">
+        <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> Имя: </h2> 
+            <p class="leading-relaxed text-base">{{ f_name }}</p> 
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> Фамилия: </h2> 
+            <p class="leading-relaxed text-base">{{ l_name }}</p> 
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> Почта: </h2> 
+            <p class="leading-relaxed text-base">{{ email }}</p> 
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Имя пользователя: </h2> 
+            <p class="leading-relaxed text-base">{{ nickname }}</p> 
+            <a class="btn btn-primary" href="#"
+            class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Update
+            Post</a>
+            <a class="btn btn-danger" href="#"
+            class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Delete
+            Post</a>
+        </div>
+    </div>
+</div> 
+{% comment %} <form> 
+    <div class="form-group">
+      <label for="Name">Имя:</label>
+      <span>{{ f_name }}</span>
+    </div>
+    <div class="form-group">
+        <label for="Second_Name">Фамилия:</label>
+        <span>{{ l_name }}</span>
+    </div>
+    <div class="form-group">
+
+        <label for="Email">Почта:</label>
+        <input>{{ email }}</input>
+    </div>
+    <div class="form-group">
+        <label for="Username">Имя пользователя:</label>
+        <span>{{ nickname }}</span>
+    </div>
+</form>  {% endcomment %}
+<a class="btn btn-info" href=" #">ОБновить данные.</a>
+{% comment %} {% for profile in profiles%}
+{{profile}}
+{% endfor %} {% endcomment %}
+{% comment %} <form method="post">
     
     <div class="container-sm" >
         <h1>Обновить профиль </h1>
@@ -14,6 +57,6 @@
         {{ form|crispy }}
         <button type="submit">Принять</button>
     </div>
-</form>
+</form>  {% endcomment %}
 
 {% endblock content %}

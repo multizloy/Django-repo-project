@@ -11,6 +11,8 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView,
 )
 from .views import *
+from registration import views
+
 
 app_name = "registration"
 
@@ -41,5 +43,6 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     # path("", include("django.contrib.auth.urls")),
-    path("dashboard/", Dashboard.as_view(), name="dashboard"),
+    # path("dashboard/", views.my_dashboard, name="dashboard"),
+    path("dashboard/<int:pk>/", Dashboard.as_view(), name="dashboard"),
 ]

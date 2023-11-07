@@ -15,7 +15,6 @@ app_name = "main"
 
 urlpatterns = [
     path("", views.home, name="home"),
-    # path("", views.post_news, name="posts-news"),
     path("store/", views.store, name="store"),
     path("list-post/", Post_News_List.as_view(), name="list-post"),
     path("add-post/", Create_Post_View.as_view(), name="add-post"),

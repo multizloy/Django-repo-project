@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django import forms
+from django.contrib.auth.models import AbstractUser, User
 
 
-User = get_user_model()
+# User = AbstractUser
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -25,11 +26,6 @@ class MyUserCreationForm(UserCreationForm):
 
 
 class User_Profile_Update_Form(forms.ModelForm):
-    email_address = forms.EmailField(required=True)
-
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
-
     class Meta:
         model = User
         fields = (

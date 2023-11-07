@@ -25,8 +25,10 @@
         <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
 
             <div class="flex-grow">
-                <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> {{ p }} </h2> 
-                <p class="leading-relaxed text-base">{{ p.text}}</p> 
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> Название статьи: {{ p }} </h2> 
+                <p class="leading-relaxed text-base">Текст статьи: {{ p.text}}</p> 
+                
+                <h5> Статья опубликована : {{p.time_created}} </h5>
 
                 {% comment %} <button type="submit" class="btn btn-primary">Register</button> {% endcomment %}
                 <a class="btn btn-info" href="{% url 'main:view-post' p.pk %}"

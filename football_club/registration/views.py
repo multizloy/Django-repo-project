@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import UserProfile
-from django.contrib.auth.models import User
+from .models import UserProfile, User
+
 
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -43,8 +43,25 @@ class CreateRegisterView(generic.CreateView):
 #         return render(request, "registration/dashboard.html", context)
 
 
-class Dashboard(generic.CreateView):
+class Dashboard(generic.ListView):
     template_name = "registration/dashboard.html"
+    form_class = User_Profile_Update_Form
+    context_object_name = "profiles"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        me = self.request.user
+        # profile = UserProfile.objects.filter(
+        #     username=me, email=me, first_name=me, last_name=me
+        # )
+        return User.objects.filter(username=me)
+
+
+class Update_Dashboard(generic.UpdateView):
+    template_name = "registration/update_dashboard.html"
     form_class = User_Profile_Update_Form
     context_object_name = "profiles"
     success_url = reverse_lazy("registration:dashboard")
@@ -58,6 +75,4 @@ class Dashboard(generic.CreateView):
         # profile = UserProfile.objects.filter(
         #     username=me, email=me, first_name=me, last_name=me
         # )
-        return UserProfile.objects.filter(
-            username=me, email=me, first_name=me, last_name=me
-        )
+        return User.objects.filter()

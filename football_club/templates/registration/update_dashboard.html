@@ -1,0 +1,21 @@
+{% extends "basic/base.html" %}
+
+
+{% block title %} <title>Обновить Профиль</title>  {% endblock title %} 
+
+{% block content %}
+
+<a class="btn btn-info" href="{% url 'registration:dashboard'  %}">Назад к посту.</a>
+<form method="post">
+    
+    <div class="container-sm" >
+        <h1>Обновить Профиль </h1>
+        {% load crispy_forms_tags %}
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Принять</button>
+    </div>
+</form>
+
+
+{% endblock content %}

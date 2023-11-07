@@ -31,7 +31,7 @@
           <ul class="dropdown-menu">
            
             
-            <li><a class="dropdown-item" href="{% url 'registration:dashboard' profiles.id   %}">Личный Кабинет</a></li>
+            <li><a class="dropdown-item" href="{% url 'registration:dashboard'    %}">Личный Кабинет</a></li>
             
             {% if user.is_footballer or user.is_admin or user.is_trainer %}
             <li><a class="dropdown-item" href="#">Футболистам</a></li>

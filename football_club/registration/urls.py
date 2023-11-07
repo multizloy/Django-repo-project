@@ -44,5 +44,10 @@ urlpatterns = [
     ),
     # path("", include("django.contrib.auth.urls")),
     # path("dashboard/", views.my_dashboard, name="dashboard"),
-    path("dashboard/<int:pk>/", Dashboard.as_view(), name="dashboard"),
+    path("dashboard/", Dashboard.as_view(), name="dashboard"),
+    path(
+        "dashboard/<int:pk>/update/",
+        Update_Dashboard.as_view(),
+        name="update-dashboard",
+    ),
 ]

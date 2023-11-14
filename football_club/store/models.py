@@ -2,8 +2,10 @@ import django
 from django.db import models
 from django.core.exceptions import ValidationError
 from fc_mltz import settings
-from django_resized import ResizedImageField
+
+# from django_resized import ResizedImageField
 from registration.models import User
+from PIL import Image
 
 # Create your models here.
 
@@ -34,8 +36,7 @@ class Item(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()
-    image = ResizedImageField(
-        size=[300, 200],
+    image = models.ImageField(
         upload_to="static/images",
         blank=True,
         null=True,
@@ -51,23 +52,18 @@ class Item(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        SIZE = 300, 300
+
+        if self.image:
+            image = Image.open(self.image.path)
+            image.thumbnail(SIZE, Image.LANCZOS)
+            image.save(self.image.path)
+
     class Meta:
         ordering = ("name",)
         verbose_name_plural = "Items"
 
     def __str__(self):
         return self.name
-
-    def image_size_validator_factory(min_w=600, min_h=600, field_name="image"):
-        def validator(image):
-            if image.width < min_w or image.height < min_h:
-                raise ValidationError(
-                    {field_name: f"Размер картинки от {min_w}х{min_h} пикселей. "}
-                )
-
-        return validator
-
-    def clean(self):
-        if self.image:
-            image_size_validator_factory()(self.image)
-        return super().clean()

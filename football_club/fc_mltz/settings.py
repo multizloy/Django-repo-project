@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "registration",
     "crispy_forms",
     "crispy_bootstrap4",
+    "store",
+    "imagefit",
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -129,6 +131,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = "static_root"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+# MEDIA_URL = "static/images"
+# MEDIA_ROOT = BASE_DIR / "static/images"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -138,3 +142,13 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 AUTH_USER_MODEL = "registration.User"
+IMAGEFIT_ROOT = "public"
+
+
+DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
+DJANGORESIZED_DEFAULT_SCALE = 0.5
+DJANGORESIZED_DEFAULT_QUALITY = 75
+DJANGORESIZED_DEFAULT_KEEP_META = True
+DJANGORESIZED_DEFAULT_FORCE_FORMAT = "JPEG"
+DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {"JPEG": ".jpg"}
+DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True

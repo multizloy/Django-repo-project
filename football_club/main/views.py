@@ -17,11 +17,6 @@ def home(request):
     return render(request, "main/home.html")
 
 
-@login_required(login_url="registration:login")
-def store(request):
-    return render(request, "main/store.html")
-
-
 class Post_News_List(generic.ListView):
     form_class = Post_News_Form
     template_name = "main/list_post.html"
@@ -82,5 +77,5 @@ class Delete_Post_View(LoginRequiredMixin, generic.DeleteView):
 
 # Создадим Личный кабинет
 # Cannot resolve keyword 'user' into field. (Choices are: date_joined, email, first_name, footballer, groups, id, is_active, is_admin,
-# is_footballer, is_staff, is_store_manager, is_superuser, is_trainer, is_user, last_login, 
+# is_footballer, is_staff, is_store_manager, is_superuser, is_trainer, is_user, last_login,
 # last_name, logentry, password, store_manager, trainer, user_permissions, username, userprofile)

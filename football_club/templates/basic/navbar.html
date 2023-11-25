@@ -18,7 +18,45 @@
           <a class="nav-link" href="{% url 'main:list-post'%}">Новости</a>
         </li>
 
+        <li class="nav-item dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#">Состав</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Вратари</a></li>
+            <li class="nav-item dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <ul>
+                <li><a class="dropdown-item" href="#">Вратарь 1</a></li>
+                <li><a class="dropdown-item" href="#">Вратарь 2</a></li>
+                <li><a class="dropdown-item" href="#">Вратарь 3</a></li>
+              </ul>
+            <li><a class="dropdown-item" href="#">Защитники</a></li>
+            <ul>
+              <li><a class="dropdown-item" href="#">Защитники 1</a></li>
+              <li><a class="dropdown-item" href="#">Защитники 2</a></li>
+              <li><a class="dropdown-item" href="#">Защитники 3</a></li>
+              <li><a class="dropdown-item" href="#">Защитники 4</a></li>
+              <li><a class="dropdown-item" href="#">Защитники 5</a></li>
+              <li><a class="dropdown-item" href="#">Защитники 6</a></li>
+            </ul>
+            <li><a class="dropdown-item" href="#">Полузащитники</a></li>
+            <ul>
+              <li><a class="dropdown-item" href="#">Полузащитники 1</a></li>
+              <li><a class="dropdown-item" href="#">Полузащитники 2</a></li>
+              <li><a class="dropdown-item" href="#">Полузащитники 3</a></li>
+              <li><a class="dropdown-item" href="#">Полузащитники 4</a></li>
+              <li><a class="dropdown-item" href="#">Полузащитники 5</a></li>
+              <li><a class="dropdown-item" href="#">Полузащитники 6</a></li>
+            </ul>
+            <li><a class="dropdown-item" href="#">Атакующие</a></li>
+            <ul>
+              <li><a class="dropdown-item" href="#">Атакующие 1</a></li>
+              <li><a class="dropdown-item" href="#">Атакующие 2</a></li>
+              <li><a class="dropdown-item" href="#">Атакующие 3</a></li>
+  
+            </ul>
+          </ul> 
+
       </ul>
+
       <div class="d-flex justify-content-end">
         <ul class="navbar-nav me-auto">
         {% if user.is_authenticated %}
@@ -55,7 +93,3 @@
 
 </nav> 
       
-      
-
-
- 

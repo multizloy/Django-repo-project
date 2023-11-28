@@ -1,0 +1,23 @@
+{% extends "basic/base_store.html" %}
+{% block title %} <title>Шапки</title>  {% endblock title %} 
+
+{% block content %}
+
+<div class="container">
+    
+    <div class="row">
+    {% for hat in hats%}
+        <div class="col-md-4">
+            <div class="card mb-4">  
+            <img class="card-img-top"  src="{{hat.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> 
+                <div class="card-body">     
+                    <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ hat.name }} </h2> 
+                    <p class="leading-relaxed text-base">{{ hat.description}}</p>                 
+                </div>
+            </div>
+        </div>
+       
+      {% endfor %}
+    </div> 
+</div> 
+{% endblock content %}

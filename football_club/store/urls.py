@@ -11,4 +11,5 @@ urlpatterns = [
     path("category-boots/", Category_Boots.as_view(), name="category-boots"),
     path("category-tshirts/", Category_Tshirts.as_view(), name="category-tshirts"),
     path("category-skarfs/", Category_Skarfs.as_view(), name="category-skarfs"),
+    path("category-balls/", Category_Balls.as_view(), name="category-balls"),
 ]

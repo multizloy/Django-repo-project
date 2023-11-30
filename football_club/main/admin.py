@@ -7,17 +7,18 @@ from django.contrib import admin
 # Register your models here.
 
 
-class PostNewsAdmin(admin.ModelAdmin):
-    form = Post_News_Form
+# class PostNewsAdmin(admin.ModelAdmin):
+#     form = Post_News_Form
 
-    def get_form(self, request, *args, **kwargs):
-        form = super(PostNewsAdmin, self).get_form(request, *args, **kwargs)
-        form.current_user = request.user
-        return form
+#     def get_form(self, request, *args, **kwargs):
+#         form = super(PostNewsAdmin, self).get_form(request, *args, **kwargs)
+#         form.current_user = request.user
+#         return form
 
 
 class PostNewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
+    readonly_fields = ["author"]
 
     def save_model(self, request, obj, form, change):
         if not change:

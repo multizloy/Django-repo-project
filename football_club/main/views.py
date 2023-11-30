@@ -3,7 +3,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
-
+from django.template.defaultfilters import slugify
 from django.views import generic
 
 from fc_mltz import settings
@@ -47,6 +47,11 @@ class Create_Post_View(
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
     # def get_form(self, *args, **kwargs):
     #     form = super(Post_News_Form, self).get_form(*args, **kwargs)

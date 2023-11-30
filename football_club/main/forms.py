@@ -13,4 +13,3 @@ class Post_News_Form(forms.ModelForm):
             "title",
             "text",
         )
-

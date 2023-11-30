@@ -17,9 +17,16 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("list-post/", Post_News_List.as_view(), name="list-post"),
     path("add-post/", Create_Post_View.as_view(), name="add-post"),
-    path("list-post/<int:pk>/", View_Post_View.as_view(), name="view-post"),
-    path("list-post/<int:pk>/update/", Update_Post_View.as_view(), name="update-post"),
+    path("list-post/<str:slug>/", View_Post_View.as_view(), name="view-post"),
+    # path("list-post/<int:pk>/", View_Post_View.as_view(), name="view-post"),
+    # path("list-post/update/<int:pk>/", Update_Post_View.as_view(), name="update-post"),
     path(
-        "delete-post/<int:pk>/delete/", Delete_Post_View.as_view(), name="delete-post"
+        "list-post/update/<str:slug>/", Update_Post_View.as_view(), name="update-post"
+    ),
+    # path(
+    #     "delete-post//delete/<int:pk>", Delete_Post_View.as_view(), name="delete-post"
+    # ),
+    path(
+        "delete-post//delete/<str:slug>", Delete_Post_View.as_view(), name="delete-post"
     ),
 ]

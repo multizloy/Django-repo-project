@@ -19,24 +19,43 @@
     </div>
  <div class="flex flex-wrap -m-4"> 
      
-    {% for p in posts %}
+    {% for post in posts %}
    
      <div class="p-4 lg:w-1/2 md:w-full">
         <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
 
             <div class="flex-grow">
-                <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> Название статьи: {{ p }} </h2> 
-                <p class="leading-relaxed text-base">Текст статьи: {{ p.text}}</p> 
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> Название статьи: {{ post }} </h2> 
+                <p class="leading-relaxed text-base">Текст статьи: {{ post.text}}</p>
+
                 
-                <h5> Статья опубликована : {{p.time_created}} </h5>
+                <h5> Статья опубликована : {{post.time_created}} </h5>
+                {{post.author.username}}
+                
 
                 {% comment %} <button type="submit" class="btn btn-primary">Register</button> {% endcomment %}
-                <a class="btn btn-info" href="{% url 'main:view-post' p.pk %}"
-                    class="mt-3 text-indigo-500 inline-flex items-center"> Посмотреть </a> 
+                <a class="btn btn-info" href="{{ post.slug }}"
+                class="mt-3 text-indigo-500 inline-flex items-center"> Посмотреть </a>
+                {% comment %} <a class="btn btn-info" href="{% url 'main:view-post' post.slug %}"
+                class="mt-3 text-indigo-500 inline-flex items-center"> Посмотреть </a> {% endcomment %}
             </div>
         </div>
     </div> 
 
     {% endfor %}
 
+
 {% endblock content %}
+
+
+{% block navigation %}
+<nav class ="list-pages">
+    <ul class="flex-column">
+        {% for p in paginator.page_range %}
+            <li>
+                <a href="?page={{ p }}">{{p}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endblock navigation %} 

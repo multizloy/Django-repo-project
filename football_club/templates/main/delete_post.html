@@ -4,18 +4,21 @@
 {% block title %} <title>Удалить Пост</title>  {% endblock title %} 
 
 {% block content %}
-<a class="btn btn-info" href="{% url 'main:view-post' posts.pk %}">Назад к посту.</a>
-
-<form method="post">
-    
-    <div class="container-sm" >
-        <h1> Вы уверены, что хотите удалить этот пост? </h1>
-        {% load crispy_forms_tags %}
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Удалить</button>
-    </div>
-</form>
+<a class="btn btn-info" href="{% url 'main:view-post' post.slug %}">Назад к посту.</a>
+{% if user.id == post.author.id %}
+    <form method="post">
+        
+        <div class="container-sm" >
+            <h1> Вы уверены, что хотите удалить этот пост? </h1>
+            {% load crispy_forms_tags %}
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit">Удалить</button>
+        </div>
+    </form>
+{% else %}
+    <h1>You are not allowed here! And you know it.</h1>
+{% endif %}
 
 
 {% endblock content %}

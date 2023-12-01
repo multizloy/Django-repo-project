@@ -8,11 +8,13 @@
     <div class="row">
     {% for tshirt in tshirts%}
         <div class="col-md-4">
-            <div class="card mb-4">  
-            <img class="card-img-top"  src="{{tshirt.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> 
-                <div class="card-body">     
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ tshirt.name }} </h2> 
-                    <p class="leading-relaxed text-base">{{ tshirt.description}}</p>                 
+            <div class="card mb-4">
+                <a href="{% url 'store:item-detail' tshirt.pk %}"> 
+                    <img class="card-img-top"  src="{{tshirt.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;">
+                </a>  
+                        <div class="card-body">     
+                            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ tshirt.name }} </h2> 
+                            <p class="leading-relaxed text-base">{{ tshirt.description}}</p>                 
                 </div>
             </div>
         </div>

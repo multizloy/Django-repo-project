@@ -9,7 +9,9 @@
     {% for ball in balls%}
         <div class="col-md-4">
             <div class="card mb-4">  
-            <img class="card-img-top"  src="{{ball.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> 
+            <a href="{% url 'store:item-detail' ball.pk %}">
+            <img class="card-img-top"   src="{{ball.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> 
+            </a>
                 <div class="card-body">     
                     <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ ball.name }} </h2> 
                     <p class="leading-relaxed text-base">{{ ball.description}}</p>

@@ -1,0 +1,26 @@
+{% extends "basic/base_store.html" %}
+
+{% block title %} <title>{{item.name}}</title>  {% endblock title %} 
+
+
+{% block content %}
+
+<div class="album bg-light text-center"><h1>Описание Предмета</h1>
+  <div class="container">
+    <div class="row">
+        
+        <div class="col">
+            <div class="card ">  
+            <img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;">
+                    <div class="card-body">     
+                        <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ item.name }} </h2> 
+                        <p class="leading-relaxed text-base">{{ item.description}}</p>                 
+                    </div>
+                
+            </div>
+        </div> 
+        
+    </div>
+  </div> 
+</div> 
+{% endblock content %}

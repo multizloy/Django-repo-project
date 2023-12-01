@@ -1,3 +1,4 @@
+from random import randint
 from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
@@ -64,14 +65,11 @@ class PostNews(models.Model):
 
     def __str__(self):
         return self.title
-
+# cохряняем названия в юрл строке, первая строчка для уникальности статей с одинаковыми заголовками
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if PostNews.objects.filter(title=self.title).exists():
+            extra = str(randint(1, 10000))
+            self.slug = slugify(self.title) + "/" + extra
+        else:
             self.slug = slugify(self.title)
-        return super().save(*args, **kwargs)
-
-    # def get_absolute_url(self):
-    #     return reverse("main:view-post", kwargs={"slug": self.slug})
-
-    # def get_absolute_url(self):
-    #     return reverse("main:view-post", kwargs={"pk": self.pk})
+        super(PostNews, self).save(*args, **kwargs)

@@ -32,10 +32,7 @@ class Post_News_List(generic.ListView):
 
 
 # создаем класс для создания новых постов на сайте
-class Create_Post_View(
-    LoginRequiredMixin,
-    generic.CreateView,
-):
+class Create_Post_View(LoginRequiredMixin, generic.CreateView):
     template_name = "main/add_post.html"
     model = PostNews
     fields = ["title", "text"]
@@ -44,10 +41,12 @@ class Create_Post_View(
     success_url = reverse_lazy("main:list-post")
     login_url = reverse_lazy("registration:login")
 
+    # автоматически сохряняет автора статьи в базу данных по авторизированному пользователю в система(автор_ид)
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    # передает сохраненные слаги в ссылки?
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
@@ -78,12 +77,10 @@ class View_Post_View(LoginRequiredMixin, generic.DetailView):
     model = PostNews
     context_object_name = "post"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context = PostNews.objects.get(slug=args)
-
-        return context
-
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return context
+# открываем деталь вбю отдельной статьи
     def get_object(self, queryset=None):
         return get_object_or_404(PostNews, slug=self.kwargs[self.slug_url_kwarg])
 

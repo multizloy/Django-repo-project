@@ -54,6 +54,7 @@ class Item(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        self.category_name = self.category.name
         SIZE = 300, 300
 
         if self.image:

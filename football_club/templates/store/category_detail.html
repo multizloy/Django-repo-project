@@ -1,33 +1,26 @@
 {% extends "basic/base_store.html" %}
-{% block title %} <title>Магазин</title>  {% endblock title %} 
-
+{% block title %} <title>{{item.name}}</title>  {% endblock title %} 
 
 {% block content %}
-
-  <div class="album bg-light text-center"><h1>Все товары  </h1>
+<div class="album bg-light text-center"><h1>Недавние товары </h1>
     <div class="container">
       <div class="row">
-        {% for item in items %}
+        {% for item in items%}
         <div class="col-md-4">
           <div class="card mb-4">  
             <a href="{% url 'store:item-detail' item.pk %}"><img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> </a>
                   <div class="card-body">     
                       <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ item.name }} </h2> 
-                      <p class="leading-relaxed text-base">{{ item.description}}</p>                  
+                      <p class="leading-relaxed text-base">{{ item.description}}</p>  
+              
                   </div>
               
           </div>
         </div> 
         {% endfor %}
       </div>
-    </div> 
-  </div> 
-</div>
-  <div class="bg-white">
-    <div class="container">
-      <p>Место для рекламы?</p>
-      <p>Место для поиска по магазину?</p>
-      <p>Корзина?</p>
     </div>
-  </div>
+</div> 
+  
 {% endblock content %}
+

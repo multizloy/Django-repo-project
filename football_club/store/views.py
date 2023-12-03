@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from datetime import timezone
+from typing import Any
+from django.db import models
+from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
 from store.models import Item, Category
@@ -11,6 +14,13 @@ class Item_List(generic.ListView):
     model = Item
     context_object_name = "items"
 
+    # контекст для навбара
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all().order_by("name")
+        context["categories"] = categories
+        return context
+
 
 # страница для отдельных страниц вещей в магазине
 class Item_Detail(generic.DetailView):
@@ -18,57 +28,25 @@ class Item_Detail(generic.DetailView):
     model = Item
     context_object_name = "item"
 
-
-# классы для категорий товаров
-class Category_Shorts(generic.ListView):
-    template_name = "store/category_shorts.html"
-    model = Item
-    context_object_name = "shorts"
-
-    def get_queryset(self):
-        return Item.objects.filter(category_id=5)
+    # контекст для навбара
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all().order_by("name")
+        context["categories"] = categories
+        return context
 
 
-class Category_Hats(generic.ListView):
-    template_name = "store/category_hats.html"
-    model = Item
-    context_object_name = "hats"
+# cоздаем страницу для предметов одной категории и выводим эти предметы
+class Category_Detail(generic.DetailView):
+    template_name = "store/category_detail.html"
+    model = Category
+    context_object_name = "item"
 
-    def get_queryset(self):
-        return Item.objects.filter(category_id=6)
-
-
-class Category_Boots(generic.ListView):
-    template_name = "store/category_boots.html"
-    model = Item
-    context_object_name = "boots"
-
-    def get_queryset(self):
-        return Item.objects.filter(category_id=4)
-
-
-class Category_Tshirts(generic.ListView):
-    template_name = "store/category_tshirts.html"
-    model = Item
-    context_object_name = "tshirts"
-
-    def get_queryset(self):
-        return Item.objects.filter(category_id=2)
-
-
-class Category_Skarfs(generic.ListView):
-    template_name = "store/category_skarfs.html"
-    model = Item
-    context_object_name = "skarfs"
-
-    def get_queryset(self):
-        return Item.objects.filter(category_id=3)
-
-
-class Category_Balls(generic.ListView):
-    template_name = "store/category_balls.html"
-    model = Item
-    context_object_name = "balls"
-
-    def get_queryset(self):
-        return Item.objects.filter(category__name="Мячи")
+    # контекст для навбара
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all().order_by("name")
+        item = Item.objects.all().filter(category_id=self.kwargs["pk"])
+        context["items"] = item
+        context["categories"] = categories
+        return context

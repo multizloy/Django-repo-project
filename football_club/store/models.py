@@ -2,6 +2,9 @@ import django
 from django.db import models
 from django.core.exceptions import ValidationError
 from fc_mltz import settings
+from django.db.models.signals import pre_save
+from fc_mltz.utils import unique_slug_generator
+
 
 # from django_resized import ResizedImageField
 from registration.models import User
@@ -13,6 +16,7 @@ from PIL import Image
 # создаем базовые категории вещей в магазине
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, blank=True, null=True)
 
     class Meta:
         ordering = ("name",)
@@ -41,7 +45,7 @@ class Item(models.Model):
         blank=True,
         null=True,
     )
-
+    slug = models.SlugField(max_length=100, blank=True, null=True)
     size = models.CharField(choices=Size.choices, default=None)
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(
@@ -68,3 +72,13 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# Это если я буду пытаться применять слаг
+def slug_generator(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(slug_generator, sender=Category)
+pre_save.connect(slug_generator, sender=Item)

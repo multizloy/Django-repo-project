@@ -52,23 +52,6 @@ class Create_Post_View(LoginRequiredMixin, generic.CreateView):
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
 
-    # def get_form(self, *args, **kwargs):
-    #     form = super(Post_News_Form, self).get_form(*args, **kwargs)
-    #     form = self.user
-    #     return form
-
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super().get_context_data(*args, **kwargs)
-    #     current_user = self.user
-    #     context = PostNews.objects.get(author_id=current_user)
-    #     return context
-
-    # def get_queryset(self, request):
-    #     user = request.user
-    #     if user.is_authenticated:
-    #         queryset = PostNews.objects.get(author=user)
-    #     return queryset
-
 
 # просмотр отдельных постов
 class View_Post_View(LoginRequiredMixin, generic.DetailView):
@@ -77,10 +60,7 @@ class View_Post_View(LoginRequiredMixin, generic.DetailView):
     model = PostNews
     context_object_name = "post"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
-# открываем деталь вбю отдельной статьи
+    # открываем деталь вбю отдельной статьи
     def get_object(self, queryset=None):
         return get_object_or_404(PostNews, slug=self.kwargs[self.slug_url_kwarg])
 

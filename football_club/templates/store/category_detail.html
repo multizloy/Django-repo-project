@@ -1,11 +1,15 @@
 {% extends "basic/base_store.html" %}
-{% block title %} <title>{{item.name}}</title>  {% endblock title %} 
+{% block title %} <title>{{category.name}}</title>  {% endblock title %} 
 
 {% block content %}
-<div class="album bg-light text-center"><h1>Недавние товары </h1>
+<div class="album bg-light text-center"><h1>Все товары Категории: {{category.name}}</h1>
+
     <div class="container">
       <div class="row">
-        {% for item in items%}
+        {% for item in items %}
+        {{ item.category}}
+        {% endfor %}
+        {% comment %} {% for item in items%}
         <div class="col-md-4">
           <div class="card mb-4">  
             <a href="{% url 'store:item-detail' item.pk %}"><img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> </a>
@@ -16,8 +20,8 @@
                   </div>
               
           </div>
-        </div> 
-        {% endfor %}
+        </div>  
+        {% endfor %} {% endcomment %}
       </div>
     </div>
 </div> 

@@ -40,13 +40,24 @@ class Item_Detail(generic.DetailView):
 class Category_Detail(generic.DetailView):
     template_name = "store/category_detail.html"
     model = Category
-    context_object_name = "item"
+    context_object_name = "category"
+    slug_url_kwarg = "slug_cat"
+
+    # def get_queryset(self):
+    #     qs = super(Item, self).get_queryset()
+    #     return qs
 
     # контекст для навбара
     def get_context_data(self, **kwargs):
+        i = self.kwargs["slug_cat"]
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all().order_by("name")
-        item = Item.objects.all().filter(category_id=self.kwargs["pk"])
-        context["items"] = item
+        items = Item.objects.all().filter(self.item.category == self.kwargs["slug_cat"])
+        # item = Item.objects.all().filter(name=self.kwargs["slug_cat"])
+        # item = Item.objects.all().filter(category_id=self.kwargs["slug"])
+        context["items"] = items
+        # context["items"] = item
         context["categories"] = categories
+        print(item)
+        print(i)
         return context

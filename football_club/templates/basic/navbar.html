@@ -70,7 +70,7 @@
            
             
             <li><a class="dropdown-item" href="{% url 'registration:dashboard'    %}">Личный Кабинет</a></li>
-            <li><a class="dropdown-item" href="#">Корзина</a></li>
+            <li><a class="dropdown-item" href="{% url 'cart:cart-list' %}">Корзина</a></li>
             {% if user.is_footballer or user.is_admin or user.is_trainer %}
             <li><a class="dropdown-item" href="#">Футболистам</a></li>
             {% endif %}

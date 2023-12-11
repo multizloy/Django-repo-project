@@ -9,6 +9,7 @@ urlpatterns = [
     path("registration/", include("registration.urls")),
     path("", include("main.urls")),
     path("store/", include("store.urls")),
+    path("cart/", include("cart.urls")),
     re_path(r"^imagefit/", include("imagefit.urls")),
 ]
 if settings.DEBUG:

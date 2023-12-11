@@ -1,0 +1,10 @@
+{% extends "basic/base.html" %}
+{% block title %} <title>Корзина</title>  {% endblock title %} 
+
+{% block content %}
+
+{% for item in object_list %}
+    {{ item}}
+{% endfor %}
+
+{% endblock content %}

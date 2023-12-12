@@ -15,8 +15,14 @@
               <img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;">
                       <div class="card-body">     
                           <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ item.name }} </h2> 
-                          <p class="leading-relaxed text-base">{{ item.description}}</p>                 
+                          <p class="leading-relaxed text-base">{{ item.description}}</p>      
+                          <p class="leading-relaxed text-base">{{ item.price}}</p>  
+                          
+                          
+                          <button type="button" class="btn btn-secondary" value="{{ item.id }}" id="add-cart"> Добавить в корзину </button>    
+                              
                       </div>
+
                   
               </div>
           </div> 
@@ -24,5 +30,27 @@
       </div>
     </div> 
 </div>
- 
+
+<script>
+    // Check if button pressed
+$(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url : '{% url "cart:cart-add" %}',
+        data : {
+            item.id: $('#add_cart').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action : 'post',
+        },
+        success: function(json){
+            console.log(json)
+        },
+        error : function(xhr, errmsg, err){
+
+        }
+    });
+})
+</script>
+
 {% endblock content %}

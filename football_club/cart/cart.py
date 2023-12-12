@@ -18,6 +18,7 @@ class Cart:
         # Logic
         if item_id in self.cart:
             pass
+        
         else:
             self.cart[item_id] = {"price ": str(item.price)}
 

@@ -35,7 +35,7 @@ def add_cart_summary(request):
     # test for post
     if request.POST.get("action") == "post":
         # Get stuff
-        item_id = int(request.POST.get("item.id"))
+        item_id = request.POST.get("item_id")
         # lookup item in DB
         item = get_object_or_404(Item, id=item_id)
         print(item_id)

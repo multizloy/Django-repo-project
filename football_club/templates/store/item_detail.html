@@ -45,7 +45,10 @@ $(document).on('click', '#add-cart', function(e){
             action : 'post',
         },
         success: function(json){
-            console.log(json)
+            // Json message for checking log works
+            //console.log(json)
+            document.getElementById("cart_quantity").
+                textContent = json.qty
         },
         error : function(xhr, errmsg, err){
 

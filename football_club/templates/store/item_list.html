@@ -13,7 +13,10 @@
             <a href="{% url 'store:item-detail' item.category.name item.name item.pk %}"><img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> </a>
                   <div class="card-body">     
                       <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ item.name }} </h2> 
-                      <p class="leading-relaxed text-base">{{ item.description}}</p>                  
+                      <p class="leading-relaxed text-base">{{ item.description}}</p> 
+                      <p class="leading-relaxed text-base">{{ item.price}}</p> 
+                      
+                                         
                   </div>
               
           </div>
@@ -22,13 +25,19 @@
       </div>
     </div> 
   </div> 
+
   {% comment %} див закрывающий навбар категорий {% endcomment %}
 </div>
-  <div class="bg-white">
-    <div class="container">
-      <p>Место для рекламы?</p>
-      <p>Место для поиска по магазину?</p>
-      <p>Корзина?</p>
-    </div>
-  </div>
+{% block navigation %}
+<div class="album bg-light text-center">
+  <nav class ="list-pages">
+      <ul class="flex-column">
+          {% for p in paginator.page_range %}
+                  <a href="?page={{ p }}">{{p}}</a>  
+          {% endfor %}
+      </ul>
+  </nav>
+</div>
+{% endblock navigation %} 
+
 {% endblock content %}

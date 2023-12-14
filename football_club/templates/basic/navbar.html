@@ -70,7 +70,11 @@
            
             
             <li><a class="dropdown-item" href="{% url 'registration:dashboard'    %}">Личный Кабинет</a></li>
-            <li><a class="dropdown-item" href="{% url 'cart:cart-list' %}">Корзина</a></li>       
+            <li><a class="dropdown-item" href="{% url 'cart:cart-list' %}">Корзина<span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}
+
+            </span></a>
+
+            </span></li> 
             <hr>
             {% if user.is_footballer or user.is_admin or user.is_trainer %}
             <li><a class="dropdown-item" href="#">Футболистам</a></li>

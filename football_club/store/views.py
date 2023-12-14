@@ -3,7 +3,7 @@ from typing import Any
 from django.db import models
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
-
+from django.views.generic.list import MultipleObjectMixin
 from store.models import Item, Category
 
 
@@ -13,6 +13,7 @@ class Item_List(generic.ListView):
     # form_class = Item
     model = Item
     context_object_name = "items"
+    paginate_by = 6
 
     # контекст для навбара
     def get_context_data(self, **kwargs):
@@ -31,6 +32,7 @@ class Item_Detail(generic.DetailView):
     # контекст для навбара
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         categories = Category.objects.all().order_by("name")
         context["categories"] = categories
         return context
@@ -41,7 +43,7 @@ class Category_Detail(generic.DetailView):
     template_name = "store/category_detail.html"
     model = Category
     context_object_name = "category"
-    
+    paginate_by = 1
 
     # контекст для навбара
     def get_context_data(self, **kwargs):

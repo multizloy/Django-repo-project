@@ -2,12 +2,16 @@
 <div class="d-flex " id="wrapper">
     <div class="border-end bg-white"  id="sidebar-wrapper">        
         <div class ="list-group text-center height=100%" >
-            <a href="{% url 'store:item-list'%}">Категории</a>
-            
+            <a class="nav-link" href="{% url 'store:item-list'%}">Категории</a>
+            <br>
+            <a class="nav-link" href="{% url 'cart:cart-list' %}">Корзина</a>
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+
+                
+            <hr>
             {% for category in categories %}
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'store:category' category.slug category.pk %}">{{category.name}}</a>
-
-            
             {% endfor %} 
+           
         </div>
     </div>

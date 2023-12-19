@@ -25,10 +25,7 @@ class Post_News_List(generic.ListView):
     model = PostNews
     template_name = "main/list_post.html"
     context_object_name = "posts"
-    paginate_by = 4
-
-    # def get_queryset(self):
-    #     return PostNews.objects.all()
+    # paginate_by = 6
 
 
 # создаем класс для создания новых постов на сайте
@@ -73,33 +70,16 @@ class Update_Post_View(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("main:list-post")
     login_url = reverse_lazy("registration:login")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context = PostNews.objects.get(slug=args)
-
-        return context
-
     def get_object(self, queryset=None):
         return get_object_or_404(PostNews, slug=self.kwargs[self.slug_url_kwarg])
-
-    # def get_queryset(self) -> QuerySet[Any]:
-    #     user = self.request.user
-    #     if user.is_authenticated:
-    #         queryset = PostNews.objects.all()
-    #     return queryset
 
 
 class Delete_Post_View(LoginRequiredMixin, generic.DeleteView):
     template_name = "main/delete_post.html"
-    queryset = PostNews.objects.all()
+
     context_object_name = "post"
     success_url = reverse_lazy("main:list-post")
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Any]:
         return PostNews.objects.all()
 
-
-# Создадим Личный кабинет
-# Cannot resolve keyword 'user' into field. (Choices are: date_joined, email, first_name, footballer, groups, id, is_active, is_admin,
-# is_footballer, is_staff, is_store_manager, is_superuser, is_trainer, is_user, last_login,
-# last_name, logentry, password, store_manager, trainer, user_permissions, username, userprofile)

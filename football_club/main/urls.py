@@ -20,13 +20,17 @@ urlpatterns = [
     path("list-post/<str:slug>/", View_Post_View.as_view(), name="view-post"),
     # path("list-post/<int:pk>/", View_Post_View.as_view(), name="view-post"),
     # path("list-post/update/<int:pk>/", Update_Post_View.as_view(), name="update-post"),
+    #  слаг на странице просмотра отдельной статьи
     path(
         "list-post/update/<str:slug>/", Update_Post_View.as_view(), name="update-post"
     ),
-    # path(
-    #     "delete-post//delete/<int:pk>", Delete_Post_View.as_view(), name="delete-post"
-    # ),
-    path(
-        "delete-post//delete/<str:slug>", Delete_Post_View.as_view(), name="delete-post"
-    ),
+    path("list-post/delete/<str:slug>", Delete_Post_View.as_view(), name="delete-post"),
 ]
+htmx_urlpattern = [
+    # path(
+    #     "delete-post/delete/<str:slug>", Delete_Post_View.as_view(), name="delete-post"
+    # ),
+# """     path("list-post/delete/<int:pk>", Delete_Post_View.as_view(), name="delete"),
+# ] """
+]
+urlpatterns += htmx_urlpattern

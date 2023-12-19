@@ -53,3 +53,11 @@ class Category_Detail(generic.DetailView):
         context["items"] = items
         context["categories"] = categories
         return context
+
+
+def search_item(request):
+    search_text = request.POST.get("search")
+    # icontains для того, чтобы было всеравно на шрифт
+    results = Item.objects.filter(name__icontains=search_text)
+    context = {"results": results}
+    return render(request, "store/search_results.html", context)

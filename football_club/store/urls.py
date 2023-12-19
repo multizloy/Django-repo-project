@@ -1,5 +1,6 @@
 from django.urls import path, include
 from .views import *
+from . import views
 
 app_name = "store"
 
@@ -17,3 +18,6 @@ urlpatterns = [
         name="category",
     ),
 ]
+
+htmx_urlpatterns = [path("search-item/", views.search_item, name="search-item")]
+urlpatterns += htmx_urlpatterns

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "store",
     "imagefit",
     "slugify",
+    "django_filters",
     "cart",
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

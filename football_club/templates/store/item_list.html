@@ -7,9 +7,20 @@
   <div class="album bg-light text-center"><h1>Все товары  </h1>
     <div class="container">
       <div class="row">
-        {% for item in items %}
+
+        {% comment %} {% for item in items %} {% endcomment %}
+
+        {% for obj in paginator_filter %}
         <div class="col-md-4">
           <div class="card mb-4">  
+            <a href="{% url 'store:item-detail' obj.category.name obj.name obj.pk %}"><img class="card-img-top"  src="{{obj.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> </a>
+                  <div class="card-body">     
+                      <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ obj.name }} </h2> 
+                      <p class="leading-relaxed text-base">{{ obj.description}}</p> 
+                      <p class="leading-relaxed text-base">{{ obj.price}}</p>                                                               
+                  </div>             
+          </div>
+          {% comment %} <div class="card mb-4">  
             <a href="{% url 'store:item-detail' item.category.name item.name item.pk %}"><img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 300px; width: 100%; display: block;"> </a>
                   <div class="card-body">     
                       <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ item.name }} </h2> 
@@ -19,19 +30,58 @@
                                          
                   </div>
               
-          </div>
+          </div> {% endcomment %}
         </div> 
         {% endfor %}
       </div>
     </div> 
   </div> 
   <div>
-    {% include "store/search.html" %}
+  <p>Фильтр</p>
+  <form method="get">
+    {{ filters.form.as_p }}
+    {% csrf_token %}<br />
+    <input type="submit"></input>
+    </form>
   </div>
+  {% comment %} <div>
+    {% include "store/search.html" %}
+  </div> {% endcomment %}
 
   {% comment %} див закрывающий навбар категорий {% endcomment %}
 </div>
 {% block navigation %}
+{% comment %} <div class="album bg-light text-center">
+  <div class="row ">
+    <div class="col-md-12">
+      <p>{% if paginator_filter.has_other_pages %}</p>
+        <ul class="pagination">
+          <p>{% if paginator_filter.has_previous %}</p>
+            <li class="page-item"><a href="?page={{paginator_filter.previous_page_number}}" class="page-link">«</a></li>
+              <p>{% else%}</p>
+                <li class="page-item disabled"></li>
+                <p><a class="page-link">«</a><br/>
+                {% endif %}<br />
+                {% for i in paginator_filter.paginator.page_range %}<br />
+                  {% if paginator_filter.paginator.page_range %}<br />
+                    <p>{% if paginator_filter.number == i %}</p>
+                      <li class="page-item active"><a  class="page-link">{{i}}</a></li>
+                      <p>{% else %}</p>
+                        <li class="page-item"><a  href="?page={{i}}" class="page-link">{{i}}</a></li>
+                    <p>{% endif %}<br />
+                  {% endif %}<br />
+                {% endfor %}<br />
+                {% if paginator_filter.has_next %}</p>
+                  <li class="page-item"><a href="?page={{paginator_filter.next_page_number}}" class="page-link">»</a></li>
+                  <p>{% else %}</p>
+                    <li class="page-item disabled"></li>
+                    <p><a class="page-link">»</a><br />
+                  {% endif %}
+        </ul>
+      <p>{% endif %}</p></div>
+  </p></div> 
+</div> {% endcomment %}
+
 <div class="album bg-light text-center">
   <nav class ="list-pages">
       <ul class="flex-column">

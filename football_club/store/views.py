@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from django.views.generic.list import MultipleObjectMixin
 from store.models import Item, Category
+from store.filters import Product_Filter
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 # предметный лист
@@ -19,7 +21,15 @@ class Item_List(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all().order_by("name")
+        # поиск товара?
+        filters = Product_Filter(self.request.GET, queryset=Item.objects.all())
+        paginator = Paginator(filters.qs, 6)
+        page = self.request.GET.get("page")
+        paged_listings = paginator.get_page(page)
+
         context["categories"] = categories
+        context["filters"] = filters
+        context["paginator_filter"] = paged_listings
         return context
 
 

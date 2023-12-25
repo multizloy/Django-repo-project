@@ -10,12 +10,52 @@
     <h1>Ваша Корзина</h1>
     <br>
         {% for item in cart_items%}
-            {{item}} {{item.price}}
+            <div class="col">
+                <div class="card ">  
+                <img class="card-img-top"  src="{{item.image.url}}" data-holder-rendered="true" style="height: 100px; width: 10%; display: block;">
+                        <div class="card-body">     
+                            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ item.name }} </h2> 
+                            <p class="leading-relaxed text-base">{{ item.description}}</p>      
+                            <p class="leading-relaxed text-base">${{ item.price}}</p>  
+                        </div>
+                </div>
+            </div>
+            <br>
+            <button type="button" data-index="{{item.id}}" class="btn btn-danger delete-item">Убрать из корзины</button>
             <hr>
+            
         {% endfor %}
+            
     {% else %}
         <h1>Ваша корзина пуста!</h1>
     {% endif %}
+    
 </div>
-</div>
+
+<script>
+{% comment %} Удалить из корзины {% endcomment %}
+$(document).on('click', '.delete-item', function(e){
+    e.preventDefault();
+    //взять номер предмета 
+    //var itemid = $(this).data('index');
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart:cart-delete' %}',
+        data: {
+            item_id: $(this).data('index'),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+        error: function(xhr, errmsg, err){
+
+        }
+
+    });
+})
+</script>
 {% endblock content %}
+

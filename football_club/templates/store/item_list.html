@@ -33,23 +33,26 @@
           </div> {% endcomment %}
         </div> 
         {% endfor %}
+        
       </div>
     </div> 
+
   </div> 
   <div>
-  <p>Фильтр</p>
-  <form method="get">
-    {{ filters.form.as_p }}
-    {% csrf_token %}<br />
-    <input type="submit"></input>
-    </form>
-  </div>
+    <p>Фильтр</p>
+    <form method="get">
+      {{ filters.form.as_p }}
+      {% csrf_token %}<br />
+      <input type="submit"></input>
+      </form>
+    </div>
   {% comment %} <div>
     {% include "store/search.html" %}
   </div> {% endcomment %}
 
   {% comment %} див закрывающий навбар категорий {% endcomment %}
 </div>
+
 {% block navigation %}
 {% comment %} <div class="album bg-light text-center">
   <div class="row ">

@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.template.defaultfilters import slugify
 from registration.models import User
 from django.conf import settings
+from django.db.models.signals import post_save
 
 # Create your models here.
 from django.template.defaultfilters import slugify as django_slugify
@@ -65,7 +66,8 @@ class PostNews(models.Model):
 
     def __str__(self):
         return self.title
-# cохряняем названия в юрл строке, первая строчка для уникальности статей с одинаковыми заголовками
+
+    # cохряняем названия в юрл строке, первая строчка для уникальности статей с одинаковыми заголовками
     def save(self, *args, **kwargs):
         if PostNews.objects.filter(title=self.title).exists():
             extra = str(randint(1, 10000))

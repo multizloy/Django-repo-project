@@ -7,6 +7,8 @@ from django.template.defaultfilters import slugify
 from django.views import generic
 
 from fc_mltz import settings
+from django.core.signals import request_finished
+from django.dispatch import receiver
 from registration.models import User
 
 from .forms import Post_News_Form
@@ -29,6 +31,8 @@ class Post_News_List(generic.ListView):
 
 
 # создаем класс для создания новых постов на сайте
+
+
 class Create_Post_View(LoginRequiredMixin, generic.CreateView):
     template_name = "main/add_post.html"
     model = PostNews
@@ -49,6 +53,7 @@ class Create_Post_View(LoginRequiredMixin, generic.CreateView):
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
 
+ 
 
 # просмотр отдельных постов
 class View_Post_View(LoginRequiredMixin, generic.DetailView):
@@ -82,4 +87,3 @@ class Delete_Post_View(LoginRequiredMixin, generic.DeleteView):
 
     def get_queryset(self) -> QuerySet[Any]:
         return PostNews.objects.all()
-

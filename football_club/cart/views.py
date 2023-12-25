@@ -85,4 +85,11 @@ def update_cart_summary(request):
 
 
 def delete_cart_summary(request):
-    pass
+    cart = Cart(request)
+    if request.POST.get("action") == "post":
+        # получить результат
+        item_id = request.POST.get("item_id")
+        # функция удаления
+        cart.delete(item=item_id)
+
+    return render(request, "cart/cart_list.html", {})

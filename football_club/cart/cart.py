@@ -37,3 +37,11 @@ class Cart:
         items = Item.objects.filter(id__in=item_ids)
         # return those looked up items
         return items
+
+    def delete(self, item):
+        item_id = str(item)
+        # удалить с корзины
+        if item_id in self.cart:
+            del self.cart[item_id]
+
+        self.session.modified = True

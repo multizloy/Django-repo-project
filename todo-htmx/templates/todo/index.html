@@ -1,0 +1,118 @@
+{% extends "partials/base.html" %}
+
+{% block content %}
+
+
+<div class="todo-container" id="todo-container">
+    <div class ="todo-search" id="todo-search">
+        <form action=""
+        hx-post={% url 'todo:create'%}
+        hx-trigger="submit"
+        hx-target="#todo-container"
+        hx-swap="outerHTML">
+        {% csrf_token %}
+            <input type="text" name="todo" id="input" placeholder="Введите название задания" required />
+    
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+    <table class="table table-sm table-striped table-bordered">   
+            <thead>       
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Дата Создания</th>
+                <th scope="col">Дата Обновления</th>
+                <th scope="col">Редактировать</th>
+                <th scope="col">Удалить</th>
+            </tr>
+            </thead>
+            
+            <tbody>
+            {% for todo in todos %}
+            {% if todo.completed == True %}
+                {% comment %} запускаем цикл для выставления всего контента заданий {% endcomment %}
+            
+                <tr>       
+                    <td>{{ todo.id }}</td>
+                    <td>{{ todo.title }}</td>
+                    
+                    <td>
+                        <div><input type="checkbox" checked
+                        hx-post="{% url 'todo:status' todo.id %}"
+                        tx-trigger="click"
+                        hx-target="#todo-container"
+                        hx-swap="outerHTML"/> 
+                            {{ todo.completed }}</div>
+                    </td>
+                    <td>{{ todo.created_at }}</td>                  
+                    <td> {{ todo.updated_at }}
+                          
+                        
+                        </td>
+                    <td>
+                    <div class="edit"
+                        hx-get="{% url 'todo:edit' todo.pk %}"
+                        hx-trigger="click"
+                        hx-target="#input"
+                        hx-swap="outerHTML"> 
+                        <button> <i class="fa-solid fa-pen-to-square">Update</i> </button> </div> </td>
+                    <td>
+                        
+                        <div class="delete"
+                        hx-post="{% url 'todo:delete' todo.pk %}"
+                        tx-trigger="click"
+                        hx-target="#todo-container"
+                        hx-swap="outerHTML"
+                        hx-confirm="Вы уверены, что хотите удалить задание?">
+                        
+                        <button type="submit"> <i class="fa-solid fa-trash-can">Delete</i> </button> </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>       
+                    <td>{{ todo.id }}</td>
+                    <td>{{ todo.title }}</td>
+                    <td>
+                        <div><input type="checkbox" 
+                        hx-post="{% url 'todo:status' todo.id %}"
+                        tx-trigger="click"
+                        hx-target="#todo-container"
+                        hx-swap="outerHTML"/> 
+                            {{ todo.completed }}</div>
+                    </td>
+                    <td>{{ todo.created_at }}</td>                  
+                    <td> {{ todo.updated_at }}
+                          
+                        
+                        </td>
+                    <td>
+                    <div class="edit"
+                        hx-get="{% url 'todo:edit' todo.pk %}"
+                        hx-trigger="click"
+                        hx-target="#input"
+                        hx-swap="outerHTML"> 
+                        <button> <i class="fa-solid fa-pen-to-square">Update</i> </button> </div> </td>
+                    <td>
+                        {% csrf_token %}
+                        <div class="delete"
+                        hx-post="{% url 'todo:delete' todo.pk %}"
+                        tx-trigger="click"
+                        hx-target="#todo-container"
+                        hx-swap="outerHTML"
+                        hx-confirm="Вы уверены, что хотите удалить задание?">
+                        
+                        <button type="submit"> <i class="fa-solid fa-trash-can">Delete</i> </button> </div>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            
+        </tbody>
+
+    </table> 
+</div>
+
+
+{% endblock content  %}

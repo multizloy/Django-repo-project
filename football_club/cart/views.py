@@ -21,44 +21,6 @@ class Cart_List(generic.ListView):
         context = {"cart_items": cart_items, "categories": categories}
         return render(request, "cart/cart_list.html", context)
 
-
-# class Cart_List(generic.TemplateView):
-
-#     def dispatch(self, request, *args, **kwargs):
-#         cart = Cart(request)  # Get the cart object
-#         cart_items = cart.get_item()  # Call the get_prods function
-#         # quantities = cart.get_quants()  # Call the get_quants function
-#         # context = {"cart_products": cart_products, "quantities": quantities}
-#         context = {"cart_items": cart_items}
-#         return render(request, "cart/cart_list.html", context)
-#         # контекст для навбара
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         categories = Category.objects.all().order_by("name")
-#         context["categories"] = categories
-#         return context
-
-
-# class Add_Cart_List(generic.CreateView):
-#     pass
-
-
-# class Update_Cart_List(generic.UpdateView):
-#     pass
-
-
-# class Delete_Cart_List(generic.DeleteView):
-#     pass
-
-
-# def cart_summary(request):
-#     # Get the cart
-#     cart = Cart(request)
-#     cart_products = cart.get_item
-#     return render(request, "cart/cart_list.html", {"cart_products": cart_products})
-
-
 def add_cart_summary(request):
     # Get cart
     cart = Cart(request)

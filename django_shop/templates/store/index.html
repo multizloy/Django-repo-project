@@ -1,0 +1,21 @@
+{% extends "partials/base.html" %}
+
+{% block content %}
+    
+<div class="container">
+    {% for product in products  %}
+    <div class="product-Container">
+        
+        <div class="thumbnail">
+            <img src="{{product.picture.url}}" alt="">
+        </div>
+        <div class="action">
+            <p>{{product.name}}</p>
+            <p>${{product.price}}</p>
+            <button value="{{product.id}}">Add to Cart</button>
+        </div>
+        
+    </div>
+    {% endfor %}
+</div> 
+{% endblock %}

@@ -45,14 +45,16 @@ def add_to_cart(request):
 
 def remove_from_cart(request):
     data = json.loads(request.body)
-
+    product_id = data["id"]
     product = Product.objects.get(id=product_id)
     if request.POST.get("delete") == "post":
-        # получить продукт
-        product_id = data["id"]
-        # функция удаления
-        data.delete(item=product_id)
-    return render(request, "store/cart.html", {})
+        # Removes a product from the cart.
+        # Gets the product ID from the POST data.
+        cart_item = Cart_Item.objects.get(cart=cart, product=product)
+        cart_item.delete()
+
+    return render(request, "store/cart.html", {"cart": cart})
+
 
 
 def confirm_payment(request, pk):

@@ -45,30 +45,25 @@ function add_To_Cart(e) {
         .catch(error => console.log(error))
 }
 
-let btn = document.querySelectorAll(".item-Container button");
+let btns = document.querySelectorAll(".shoppingCart .delete-item");
 
 btns.forEach(btn => {
-    btn.addEventListener("click", remove_From_Cart)
+    btn.addEventListener("click", removeFromCart)
 })
-function remove_From_Cart(e) {
-    let product_id = e.target.value;
-    let url = "remove_from_cart/"
 
-    let data = { id: product_id };
-    
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
+function removeFromCart(e) {
+    let productId = e.target.dataset.index;
+
+    fetch(`/remove_from_cart/${productId}/`, {
+        method: "DELETE",
         headers: {
-            "Content-Type": "application/json",
-            'X-CSRFToken': csrftoken,
-            
-        },
+            "X-CSRFToken": csrftoken
+        }
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Deleted")
-            console.log(data);
-            // alert("Added to Cart");
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            }
         })
-        .catch(error => console.log(error))}
+        .catch(error => console.log(error))
+// }

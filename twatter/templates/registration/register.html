@@ -1,0 +1,22 @@
+{% extends "partials/base.html" %}
+
+{% block title %}<title>Register</title>{% endblock title %}
+
+
+{% block content %}
+
+
+{% if request.user.is_authenticated%}
+<h1>You are already logged in</h1>
+{% else %}
+<div class="col-md-6 offset-md-3">
+    <h1>Register Page</h1>
+
+    <form method="POST" action="{% url 'registration:register' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register" class="btn btn-primary">
+    </form> 
+</div> 
+ {% endif%} 
+{% endblock %}

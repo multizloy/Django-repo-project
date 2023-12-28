@@ -2,12 +2,33 @@
 {% block title %} <title>Главная страница</title> {% endblock title %}
 
 {% block content %}
-    <h1>Text</h1>
-    {% for twat in twats%}
-    <div class="alert alert-dark" role="alert">
-        {{ twat }}
-        <br>
-      </div>
+<div class="container text-center">
+    <div class="row">
+        <div class="col-8">
+            <h1>TWATS!</h1>
+            {% for twat in twats%}
+            <div class="alert alert-dark" role="alert">
+                {{ twat.content }}
+                <br>
+                <small class="text-muted">{{ twat.date_posted}} by {{ twat.user.username }}</small>
+                <br>
 
-    {% endfor%}
+            </div>      
+            {% endfor%}        
+        </div>
+        <div class="col-4"> 
+            {% if form %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Twat</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+    
 {% endblock content %}

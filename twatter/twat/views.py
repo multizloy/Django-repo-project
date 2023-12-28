@@ -1,14 +1,33 @@
 from .models import Profile, Twat
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+from .forms import Twat_Form
 
 # Create your views here.
 def index(request):
+    # Handles the main index view for authenticated users.
+    # Allows posting new twats via a form.
+    # Displays paginated list of twats.
+    # For unauthenticated users, just displays the twat list.
     if request.user.is_authenticated:
+        form = Twat_Form(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                twat = form.save(commit=False)
+                twat.user = request.user
+                twat.save()
+                messages.success(request, "Twat posted successfully")
+                return redirect("twat:index")
+            else:
+                messages.error(request, "Twat not posted")
+
         twats = Twat.objects.all().order_by("-date_posted")
-    context = {"twats": twats}
-    return render(request, "twat/index.html", context)
+        context = {"twats": twats, "form": form}
+        return render(request, "twat/index.html", context)
+    else:
+        twats = Twat.objects.all().order_by("-date_posted")
+        context = {"twats": twats}
+        return render(request, "twat/index.html", context)
 
 
 def profile_list(request):

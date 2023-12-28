@@ -1,0 +1,57 @@
+{% extends "partials/base.html" %}
+{% block title %} <title>Твой профиль</title> {% endblock title %}
+
+{% block content %}
+    {% if profile %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1>{{ profile.user.username}}`s Profile</h1>
+                {% if twats %}
+                    {% for twat in twats%}
+                        <div class="alert alert-dark" role="alert">
+                        {{ twat.content}}
+                        <br>
+                        {{ twat.date_posted}}
+                        
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <h5 class="card-header"><strong>Follows</strong></h5>
+                    {% for following in profile.follows.all %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'twat:profile' following.user.pk %}"> @{{ following }} </a></h5>               
+                    </div>
+                    {% endfor %}
+                </div> 
+                <div class="card">
+                    <h5 class="card-header"><strong>Followers</strong></h5>
+                    {% for follower in profile.followers.all %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'twat:profile' follower.user.pk %}"> @{{ follower }} </a> </a></h5>               
+                    </div>
+                    {% endfor %}
+                </div>
+                {% comment %} {% if messages %}
+                    {% for message in messages %} {% endcomment %}
+                        <form method="POST" >
+                            {% csrf_token %}
+                            {% if profile in user.profile.follows.all %}
+                                <button type="submit" class="btn btn-danger" name="follow-btn" value="unfollow">Unfollow @ {{ profile.user.username | lower}}</button>
+                            {% else %}
+                                <button type="submit" class="btn btn-primary" name="follow-btn" value="follow">Follow @{{ profile.user.username | lower}}</button>
+                            {% endif%}
+                            </form>
+                        {% comment %} {% endfor %}
+                {% endif %} {% endcomment %}
+            </div>
+
+        </div>
+    </div> 
+    {% endif %}
+        
+
+{% endblock content %}

@@ -3,4 +3,11 @@
 
 {% block content %}
     <h1>Text</h1>
+    {% for twat in twats%}
+    <div class="alert alert-dark" role="alert">
+        {{ twat }}
+        <br>
+      </div>
+
+    {% endfor%}
 {% endblock content %}

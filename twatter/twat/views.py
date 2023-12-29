@@ -1,7 +1,12 @@
 from .models import Profile, Twat
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import Twat_Form
+from .forms import Twat_Form, Profile_Form, Profile_Update_Form
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from registration.forms import Register_Form
+
 
 # Create your views here.
 def index(request):
@@ -66,3 +71,37 @@ def profile(request, pk):
     else:
         messages.success(request, "You must be logged in to view this page.")
         return redirect("twat:index")
+
+
+def profile_edit(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        current_profile = Profile.objects.get(user_id=request.user.id)
+        # передает функцию для смены Юзернейма, имени, фамилии, почты
+        user_form = Profile_Update_Form(
+            request.POST or None, request.FILES or None, instance=current_user
+        )
+        # передает функцию для смены картинки профиля
+        profile_form = Profile_Form(
+            request.POST or None, request.FILES or None, instance=current_profile
+        )
+
+        if request.method == "POST":
+            if user_form.is_valid() and profile_form.is_valid() ():
+                user_form.save()
+                profile_form.save()
+                
+                messages.success(request, "Profile updated successfully")
+                return redirect("twat:profile", pk=request.user.id)
+            else:
+                messages.error(request, "Profile not updated")
+        context = {
+            "user_form": user_form,
+            "profile_form": profile_form,
+           
+        }
+        return render(request, "twat/profile_edit.html", context)
+    else:
+        messages.success(request, "You must be logged in to view this page.")
+        return redirect("twat:index")
+

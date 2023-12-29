@@ -8,12 +8,14 @@ from .forms import Register_Form
 
 
 def login_view(request):
+    
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+
             messages.success(request, "You have successfully logged in as " + username)
             return redirect("twat:index")
         else:
@@ -35,6 +37,7 @@ def register_view(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password1")
             messages.success(request, "You have successfully registered as " + username)
             return redirect("twat:index")
         else:

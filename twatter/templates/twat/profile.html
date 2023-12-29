@@ -7,18 +7,25 @@
         <div class="row">
             <div class="col-8">
                 <h1>{{ profile.user.username}}`s Profile</h1>
+                <h3>{{ profile.user.last_name}}</h3>
                 {% if twats %}
                     {% for twat in twats%}
                         <div class="alert alert-dark" role="alert">
                         {{ twat.content}}
                         <br>
-                        {{ twat.date_posted}}
-                        
+                        {{ twat.date_posted}}                     
                         </div>
                     {% endfor %}
                 {% endif %}
             </div>
+
             <div class="col-4">
+                <h3>Profile picture</h3>
+                {% if profile.profile_image%}
+
+                <img src="{{ profile.profile_image.url }}" alt="" class="rounded-circle" width="200" height="100">
+                
+                {% endif %}
                 <div class="card">
                     <h5 class="card-header"><strong>Follows</strong></h5>
                     {% for following in profile.follows.all %}
@@ -45,6 +52,11 @@
                                 <button type="submit" class="btn btn-primary" name="follow-btn" value="follow">Follow @{{ profile.user.username | lower}}</button>
                             {% endif%}
                             </form>
+                            <br>
+                            {% comment %} Check for correct user {% endcomment %}
+                        {% if request.user.id == profile.user.id %}
+                        <a href="{% url 'twat:profile_edit' %}" class="btn btn-secondary">Update profile</a>
+                        {% endif %}
                         {% comment %} {% endfor %}
                 {% endif %} {% endcomment %}
             </div>
@@ -52,6 +64,6 @@
         </div>
     </div> 
     {% endif %}
-        
+
 
 {% endblock content %}

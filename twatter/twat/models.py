@@ -11,8 +11,10 @@ class Profile(models.Model):
         "self", symmetrical=False, related_name="followers", blank=True
     )
     date_modified = models.DateTimeField(User, auto_now=True)
-    profile_image = models.ImageField(null=True, blank=True, upload_to="static/images/profile-image/")
-    
+    profile_image = models.ImageField(
+        null=True, blank=True, upload_to="static/images/profile-image/"
+    )
+
     def __str__(self):
         return self.user.username
 
@@ -32,7 +34,10 @@ class Twat(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="twats")
     content = models.TextField(max_length=140)
     date_posted = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, related_name="likes", blank=True)
+    likes = models.ManyToManyField(User, related_name="twat_like", blank=True)
+
+    def number_of_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return (

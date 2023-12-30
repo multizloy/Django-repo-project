@@ -13,6 +13,7 @@ class Profile_Inline(admin.StackedInline):
     fields = [
         "follows",
         "profile_image",
+        "bio",
     ]
 
 
@@ -25,7 +26,6 @@ class User_Admin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "email",
-        
     ]
     inlines = [Profile_Inline]
 

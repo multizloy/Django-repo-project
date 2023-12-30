@@ -1,7 +1,7 @@
 from .models import Profile, Twat
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from .forms import Twat_Form, Profile_Form, Profile_Update_Form
+from .forms import Twat_Form, Profile_Form, Profile_Update_Form, Change_Password_Form
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -87,10 +87,10 @@ def profile_edit(request):
         )
 
         if request.method == "POST":
-            if user_form.is_valid() and profile_form.is_valid() ():
+            if user_form.is_valid() and profile_form.is_valid()():
                 user_form.save()
                 profile_form.save()
-                
+
                 messages.success(request, "Profile updated successfully")
                 return redirect("twat:profile", pk=request.user.id)
             else:
@@ -98,10 +98,41 @@ def profile_edit(request):
         context = {
             "user_form": user_form,
             "profile_form": profile_form,
-           
         }
         return render(request, "twat/profile_edit.html", context)
     else:
         messages.success(request, "You must be logged in to view this page.")
         return redirect("twat:index")
 
+
+def twat_like(request, pk):
+    if request.user.is_authenticated:
+        twat = get_object_or_404(Twat, id=pk)
+        if twat.likes.filter(id=request.user.id):
+            messages.success(
+                request,
+                "You disliked" + " " + str(twat.content) + " by" + " @" + str(twat.user),
+            )
+            twat.likes.remove(request.user)
+        else:
+            messages.success(
+                request,
+                "You liked" + " " + str(twat.content) + " by" + " @" + str(twat.user),
+            )
+            twat.likes.add(request.user)
+
+        return redirect(request.META.get("HTTP_REFERER"))
+
+    else:
+        messages.success(request, "You must be logged in to view this page.")
+        return redirect("twat:index")
+
+
+def twat_share(request, pk):
+    if request.user.is_authenticated:
+        twat = get_object_or_404(Twat, id=pk)
+        if twat:
+            return render(request, "twat/twat_share.html", {"twat": twat})
+        else:
+            messages.success(request, "This twat doesn`t exist.")
+            return redirect("twat:index")

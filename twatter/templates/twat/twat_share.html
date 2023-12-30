@@ -6,9 +6,9 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-8">
-            <h1>TWATS!</h1>
+            <h1>TWATS shared!</h1>
             {% comment %} делаем форму для показа всех тватов и их вид {% endcomment %}
-            {% for twat in twats%}
+            
             <div class="alert alert-dark" role="alert">
                 <div class="container">
                     <div class="row">
@@ -27,29 +27,15 @@
                             <br>
                             {% if user in twat.likes.all %}
                             {% comment %} unlike {% endcomment %}
-                            {{ twat.number_of_likes}} <a href="{% url 'twat:twat_like' twat.pk %}">&#128148;</a>
+                            {{ twat.number_of_likes}} <a href="{% url 'twat:twat_like' twat.pk %}">&#128148;</i> </a>
                             {% else %}
                             {% comment %} like {% endcomment %}
-                            {{ twat.number_of_likes}} <a href="{% url 'twat:twat_like' twat.pk %}">&#128150;</a>
+                            {{ twat.number_of_likes}} <a href="{% url 'twat:twat_like' twat.pk %}">&#128150;  </i></a>
                             {% endif %}
-                            <a href="{% url "twat:twat_share" twat.pk %}"> &#8634; </a>
-                            
                         </div>
                     </div>
-                </div>
-                
-
-            </div>      
-            {% endfor%}        
-        </div>
-        <div class="col-4"> 
-            {% if form %}
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Twat</button>
-                </form>
-            {% endif %}
+                </div>               
+            </div>                        
         </div>
     </div>
 </div>

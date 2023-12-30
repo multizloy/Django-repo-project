@@ -1,4 +1,5 @@
 {% extends "partials/base.html" %}
+{% load static %}
 {% block title %} <title>Твой профиль</title> {% endblock title %}
 
 {% block content %}
@@ -6,14 +7,40 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <h1>{{ profile.user.username}}`s Profile</h1>
-                <h3>{{ profile.user.last_name}}</h3>
+                <h1>{{ profile.user.username}}`s Profile</h1>  
+                <hr> 
+                <h2>Bio</h2>           
+                <h5> {{ profile.bio}}</h5>
+                <hr>
                 {% if twats %}
                     {% for twat in twats%}
+                    
                         <div class="alert alert-dark" role="alert">
-                        {{ twat.content}}
-                        <br>
-                        {{ twat.date_posted}}                     
+                            <div class="container"> 
+                                <div class="row">
+                                    <div class="col-1">
+                                        {% if profile.profile_image%}
+                                            <img src="{{profile.profile_image.url}}" width=50 height=50 class="rounded-circle" alt="{{profile.user.username}}">
+                                        {% else %}
+                                            <img src="{% static 'images/profile-image/profile.webp' %}" class="img-fluid rounded-start" alt="Profile image">
+                                        {% endif %}
+                                        
+                                    </div>
+                                        <div class="col-10">
+                                            
+                                            {{ twat.content}}                      
+                                            <br>
+                                            {{ twat.date_posted}}  
+                                            <br>
+                                            {% if user in twat.likes.all %}
+                                            {{ twat.number_of_likes}} <a href="{% url 'twat:twat_like' twat.pk %}"> &#128148; </a>
+                                            {% else %}
+                                            {{ twat.number_of_likes}} <a href="{% url 'twat:twat_like' twat.pk %}"> &#128150; </a>
+                                            {% endif %} 
+                                            <a href="{% url "twat:twat_share" twat.pk %}"> &#8634; </a>                                                                                   
+                                        </div>                                                                     
+                                </div>
+                            </div>                   
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -23,7 +50,7 @@
                 <h3>Profile picture</h3>
                 {% if profile.profile_image%}
 
-                <img src="{{ profile.profile_image.url }}" alt="" class="rounded-circle" width="200" height="100">
+                <img src="{{ profile.profile_image.url }}" alt="" class="rounded-circle" width="100" height="100">
                 
                 {% endif %}
                 <div class="card">

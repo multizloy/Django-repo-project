@@ -62,21 +62,19 @@ class Profile_Update_Form(forms.ModelForm):
             "last_name",
             "email",
         ]
-
-
-# class Change_Password_Form(forms.Form):
-#     current_password = forms.CharField(
-#         widget=forms.PasswordInput(
-#             attrs={"class": "form-control", "placeholder": "Current password"}
-#         )
-#     )
-#     new_password = forms.CharField(
-#         widget=forms.PasswordInput(
-#             attrs={"class": "form-control", "placeholder": "New password"}
-#         )
-#     )
-#     confirm_new_password = forms.CharField(
-#         widget=forms.PasswordInput(
-#             attrs={"class": "form-control", "placeholder": "Repeat new password"}
-#         )
-#     )
+class Change_Password_Form(forms.Form):
+    current_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Current password"}
+        )
+    )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "New password"}
+        )
+    )
+    confirm_new_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Repeat new password"}
+        )
+    )

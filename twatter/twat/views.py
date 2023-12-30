@@ -111,7 +111,12 @@ def twat_like(request, pk):
         if twat.likes.filter(id=request.user.id):
             messages.success(
                 request,
-                "You disliked" + " " + str(twat.content) + " by" + " @" + str(twat.user),
+                "You disliked"
+                + " "
+                + str(twat.content)
+                + " by"
+                + " @"
+                + str(twat.user),
             )
             twat.likes.remove(request.user)
         else:
@@ -136,3 +141,51 @@ def twat_share(request, pk):
         else:
             messages.success(request, "This twat doesn`t exist.")
             return redirect("twat:index")
+
+
+def unfollow(request, pk):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user_id=pk)
+        # unfollow
+        request.user.profile.follows.remove(profile)
+        # save profile
+        request.user.profile.save()
+
+        messages.success(
+            request, "You successfully unfollowed " + str(profile.user.username)
+        )
+        return redirect(request.META.get("HTTP_REFERER"))
+    else:
+        messages.success(request, "You must be logged in to unfollow")
+        return redirect("twat:home")
+
+
+def follow(request, pk):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user_id=pk)
+        # unfollow
+        request.user.profile.follows.add(profile)
+        # save profile
+        request.user.profile.save()
+
+        messages.success(
+            request, "You successfully followed " + str(profile.user.username)
+        )
+        return redirect(request.META.get("HTTP_REFERER"))
+    else:
+        messages.success(request, "You must be logged in to unfollow")
+        return redirect("twat:home")
+
+
+def followers(request, pk):
+    if request.user.is_authenticated:
+        if request.user.id == pk:
+            profiles = Profile.objects.get(user_id=pk)
+            context = {"profiles": profiles}
+            return render(request, "twat/followers.html", context)
+        else:
+            messages.success(request, "You are not allowed here.")
+            return redirect("twat:index")
+    else:
+        messages.success(request, "You must be logged in to view this page.")
+        return redirect("twat:index")

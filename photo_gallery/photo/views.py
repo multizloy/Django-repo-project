@@ -1,8 +1,14 @@
 from django.shortcuts import render
 from .models import Photo
-
+from django.http import HttpResponse
 
 # Create your views here.
+
+
+from django.shortcuts import render
+from django.template.loader import render_to_string
+from .models import Photo
+from django.http import HttpResponse
 
 
 def index(request):
@@ -21,4 +27,6 @@ def index(request):
         "has_prev": has_prev,
         "has_next": has_next,
     }
-    return render(request, "photo/gallery.html", context)
+    # return render(request, "photo/gallery.html", context)
+    return HttpResponse(render_to_string('photo/gallery.html', context))
+

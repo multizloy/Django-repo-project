@@ -1,0 +1,9 @@
+{% extends "base/base.html" %}
+{% load static%}
+{% block content %}
+{% for gal in gallery%}
+    
+
+    <img src="{% static 'images/gallery'%}" alt="{{ gal.title}}"> 
+{% endfor %}
+{% endblock content %}

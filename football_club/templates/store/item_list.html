@@ -65,6 +65,7 @@
                 <li class="page-item disabled"></li>
                 <p><a class="page-link">«</a><br/>
                 {% endif %}<br />
+                
                 {% for i in paginator_filter.paginator.page_range %}<br />
                   {% if paginator_filter.paginator.page_range %}<br />
                     <p>{% if paginator_filter.number == i %}</p>

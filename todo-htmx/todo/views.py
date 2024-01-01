@@ -27,7 +27,6 @@ def create(request):
 
 def edit(request, pk):
     todo = Task.objects.get(id=pk)
-    print(todo.title)
     return HttpResponse(
         f"""
                         <input type="hidden" value="{todo.id}" name="todo_id" />
@@ -38,13 +37,14 @@ def edit(request, pk):
 
 def delete(request, pk):
     todo = Task.objects.get(id=pk)
-    
+
     todo.delete()
     todos = Task.objects.all()
     context = {"todos": todos}
     return render(request, "todo/index.html", context)
 
-def status(request, pk ):
+
+def status(request, pk):
     todo = Task.objects.get(id=pk)
     todo.completed = not todo.completed
     todo.save()

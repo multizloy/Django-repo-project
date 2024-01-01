@@ -83,5 +83,59 @@
     <br>
 </div>
 </div>
+<div class="gallery">
+    {% for photo in photos %}
+      <div class="photo">
+        <img src="{{ photo.image.url }}" alt="#">
+      </div>
+    {% endfor %}
+  </div>
+    {% comment %} <div class="row ">
+    <div class="col-md-12">
+      <p>{% if photo.image %}</p>
+        <ul class="pagination">
+          <p>{% if photo.image.has_previous %}</p>
+            <li class="page-item"><a href="?page={{photo.image.previous_page_number}}" class="page-link">«</a></li>
+              <p>{% else%}</p>
+                <li class="page-item disabled"></li>
+                <p><a class="page-link">«</a><br/>
+                {% endif %}<br />
+
+              {% if photo.has_next %}</p>
+                  <li class="page-item"><a href="?page={{photo.image.next_page_number}}" class="page-link">»</a></li>
+                  <p>{% else %}</p>
+                    <li class="page-item disabled"></li>
+                    <p><a class="page-link">»</a><br />
+                  {% endif %}
+                {% endif %}  {% endcomment %}
+{% comment %} <script>
+    let currentIndex = 0;
+
+function scrollGallery(direction) {
+  const images = document.querySelectorAll('.photo');
+  
+  if (direction === 'left') {
+    currentIndex--;
+    if (currentIndex < 0) {
+      currentIndex = images.length - 1;
+    }
+  } else if (direction === 'right') {
+    currentIndex++;
+    if (currentIndex >= images.length) {
+      currentIndex = 0;
+    }
+  }
+
+  document.querySelector('.gallery').style.transform = `translateX(-${currentIndex * 100}%)`; 
+}
+
+document.querySelector('.left').addEventListener('click', () => {
+  scrollGallery('left'); 
+});
+
+document.querySelector('.right').addEventListener('click', () => {
+  scrollGallery('right');
+});
+</script>  {% endcomment %}
 </body>
 </html>

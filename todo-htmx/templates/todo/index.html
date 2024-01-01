@@ -19,7 +19,7 @@
     <table class="table table-sm table-striped table-bordered">   
             <thead>       
             <tr>
-                <th scope="col">#</th>
+                {% comment %} <th scope="col">#</th> {% endcomment %}
                 <th scope="col">Название</th>
                 <th scope="col">Статус</th>
                 <th scope="col">Дата Создания</th>
@@ -35,7 +35,7 @@
                 {% comment %} запускаем цикл для выставления всего контента заданий {% endcomment %}
             
                 <tr>       
-                    <td>{{ todo.id }}</td>
+                    {% comment %} <td>{{ todo.id }}</td> {% endcomment %}
                     <td>{{ todo.title }}</td>
                     
                     <td>
@@ -72,7 +72,7 @@
                 </tr>
                 {% else %}
                 <tr>       
-                    <td>{{ todo.id }}</td>
+                    {% comment %} <td>{{ todo.id }}</td> {% endcomment %}
                     <td>{{ todo.title }}</td>
                     <td>
                         <div><input type="checkbox" 

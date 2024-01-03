@@ -31,7 +31,6 @@
 </div> -->
 <!-- htmx -->
 
-
 <div id="photo-container">
     <div hx-get="{% url 'photo:index' %}?photo={{current|add:-1}}" 
      hx-target="#photo-container"
@@ -44,11 +43,11 @@
             <img src="{{  gal.photo.url }}"width=100 height=100 alt="{{gal.title}}">
         {% endif %}
   {% endfor %}
-  <div hx-get="{% url 'photo:index' %}?photo={{current|add:1}}"
-  hx-target="#photo-container"
-  hx-swap="innerHTML"
-  hx-trigger="click"
-   class="btn-btn-secondary">Next</div>
+    <div hx-get="{% url 'photo:index' %}?photo={{current|add:1}}"
+    hx-target="#photo-container"
+    hx-swap="innerHTML"
+    hx-trigger="click"
+   
 </div>
 
 

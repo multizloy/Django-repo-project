@@ -24,7 +24,14 @@ from .models import Product, Category
 # admin.site.register(Category)
 @admin.register(Product)
 class Product_Admin(admin.ModelAdmin):
-    list_display = ["name", "price", "category"]
+    list_display = [
+        "name",
+        "price",
+        "category",
+        "in_stock",
+        "slug",
+
+    ]
     ordering = ["name"]
 
     def get_prepopulated_fields(self, request, obj=None) -> dict[str, tuple[str]]:

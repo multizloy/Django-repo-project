@@ -46,6 +46,9 @@ class Category(models.Model):
             self.slug = slugify(rand_slug() + "-pickBetter" + self.name)
         super(Category, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("shop:category-list", args=[str(self.slug)])
+
 
 # Model representing a product
 class Product(models.Model):
@@ -64,7 +67,7 @@ class Product(models.Model):
     description = models.TextField()
 
     # Product price
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 
     # Product slug
     slug = models.SlugField(max_length=48)
@@ -89,6 +92,9 @@ class Product(models.Model):
     # String representation
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("shop:products-detail", args=[str(self.slug)])
 
 
 # Custom manager to filter in-stock products

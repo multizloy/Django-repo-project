@@ -71,7 +71,7 @@
 
                             <div class="col-6 text-end">
 
-                                <button type="button" id="add-button" value="" class="btn btn-secondary btn-sm">
+                                <button type="button" id="add-button" value="{{product.id}}" class="btn btn-secondary btn-sm">
 
                                 Add to cart 
 
@@ -104,19 +104,19 @@
             type: 'POST',
             url: '{% url "cart:add_to_cart" %}',
             data: {
-                //product_id: $('#add-button').val(),
-                product_id: {{product.id}},
+                product_id: $('#add-button').val(),
                 product_qty: $('#select option:selected').text(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
             success: function(response){
                 document.getElementById('lblCartCount').textContent = response.qty
+                
                 alert("Item added to cart")
 
             }, 
             error: function(error){
-                console.log(error)
+                
                 alert("Item not added to cart")
             }
         })
@@ -125,35 +125,5 @@
 
 
 </script>
-
-{% comment %} <script>
-    // Add to cart button
-    
-   $(document).on("click", "#add-button", function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: "POST",
-            url: "{% url 'cart:add_to_cart'  %}",
-            data:{
-                // product_id: $("#add-button").val(),
-                product_id: {{product.id}},
-                // product_qty: $("#select option:selected").text(),
-                
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-                action: "post"
-            },
-            success: function(response) {
-                console.log(response)
-                alert("Item added to cart")
-
-            },
-            error: function(error) {
-                console.log(error)
-                alert("Item not added to cart")
-            },
-        })
-    })
-</script> {% endcomment %}
 
 {% endblock %}

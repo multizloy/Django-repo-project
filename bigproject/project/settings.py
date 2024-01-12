@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     # apps
     "shop",
     "cart",
+    "account",
+    # third part
+    "mathfilters",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    # "crispy_bootstrap4",
+    "django_email_verification",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +137,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# third party packs
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+# CRISPY_TEMPLATE_PACK = "bootstrap4"

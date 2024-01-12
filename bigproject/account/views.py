@@ -2,14 +2,14 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import redirect, render
-
-# from . forms import User_Register_Form
 from django_email_verification import send_email
-from .forms import UserCreateForm
+from .forms import UserCreateForm, Login_Form
+from django.contrib import messages
 
 # Create your views here.
 
 User = get_user_model()
+
 
 def register_user(request):
     if request.method == "POST":
@@ -28,7 +28,30 @@ def register_user(request):
             user.is_active = False
 
             send_email(user)
-            return redirect("account:login")
+            return redirect("/account/email_verification/")
     else:
         form = UserCreateForm()
     return render(request, "account/register.html", {"form": form})
+
+
+def login_user(request):
+    form = Login_Form()
+
+    if request.user.is_authenticated:
+        messages.info(request, "You are already logged in")
+        return redirect("shop:products")
+    if request.method == "POST":
+        form = Login_Form(request.POST)
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("account:dashboard")
+        else:
+            return render(
+                request, "account/login.html", {"error": "Invalid Credentials"}
+            )
+    else:
+        context = {"form": form}
+        return render(request, "account/login.html", context)

@@ -9,11 +9,15 @@ urlpatterns = [
     # Registration and verification
     path("register/", views.register_user, name="register"),
     path(
-        "email_verification/",
-        lambda request: render(request, "account/email/email_verification.html"),
-        name="email_verification",
+        "email-verification-sent/",
+        lambda request: render(request, "account/email/email-verification-sent.html"),
+        name="email-verification-sent",
     ),
-    #login
+    # login
     path("login/", views.login_user, name="login"),
-    # path("logout/", views.logout_user, name="logout"),
+    path("logout/", views.logout_user, name="logout"),
+    # dashboard
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("profile-management/", views.profile_management, name="profile-management"),
+    path("profile-delete/", views.profile_delete, name="profile-delete"),
 ]

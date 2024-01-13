@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "shop",
     "cart",
     "account",
+    "payment",
     # third part
     "mathfilters",
     "crispy_forms",
@@ -149,11 +150,6 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
-# CRISPY_TEMPLATE_PACK = "bootstrap4"
-
-# settings.py
-
 
 def email_verified_callback(user):
     user.is_active = True
@@ -164,7 +160,7 @@ def email_verified_callback(user):
 
 
 # Global Package Settings
-EMAIL_FROM_ADDRESS = "multizloy@yandex.ru"  # mandatory
+EMAIL_FROM_ADDRESS = "multizloy@gmail.com"  # mandatory
 EMAIL_PAGE_DOMAIN = "http://127.0.0.1:8000/"  # mandatory (unless you use a custom link)
 EMAIL_MULTI_USER = False  # optional (defaults to False)
 
@@ -192,12 +188,12 @@ EMAIL_MAIL_CALLBACK = email_verified_callback
 # For Django Email Backend
 
 # отправка на нашу почту для подтвердения
-# EMAIL_BACKEND = "django.core.mail.backends.cmtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.cmtp.EmailBackend"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "multizloy@yandex.ru"
+EMAIL_HOST_USER = "multizloy@gmail.com"
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")  # os.environ['password_key'] suggested
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER

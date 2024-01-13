@@ -25,6 +25,7 @@ urlpatterns = [
     path("shop/", include("shop.urls")),
     path("cart/", include("cart.urls")),
     path("account/", include("account.urls")),
+    path("payment/", include("payment.urls")),
     path("email/", include(email_urls), name="email_verification"),
 ]
 if settings.DEBUG:

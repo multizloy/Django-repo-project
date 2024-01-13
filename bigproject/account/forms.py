@@ -35,3 +35,18 @@ class Login_Form(AuthenticationForm):
     password = forms.CharField(
         widget=PasswordInput(attrs={"class": "form-control", "placeholder": "Password"})
     )
+
+
+class User_Update_Form(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    
+    def __init__(self, *args, **kwargs):
+        super(User_Update_Form, self).__init__(*args, **kwargs)
+
+        self.fields["email"].label = "Your Email Address"
+        self.fields["email"].required = True
+
+    class Meta:
+        model = User
+        fields = ["username", "email"]
+        exclude = ["password1", "password2"]

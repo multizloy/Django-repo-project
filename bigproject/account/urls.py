@@ -10,7 +10,7 @@ urlpatterns = [
     path("register/", views.register_user, name="register"),
     path(
         "email-verification-sent/",
-        lambda request: render(request, "account/email/email-verification-sent.html"),
+        lambda request: render(request, "account/email-verification-sent.html"),
         name="email-verification-sent",
     ),
     # login

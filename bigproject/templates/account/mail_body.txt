@@ -1,4 +1,4 @@
 
 You are almost there, {{ user.username }}!
-Please click the following link to confirm your account: {{ link }}
+Please click the following link to confirm your account: {{ link }} 
 The token expires on {{ expiry|time:"TIME_FORMAT" }}

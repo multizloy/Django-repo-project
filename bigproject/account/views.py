@@ -3,14 +3,20 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django_email_verification import send_email
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 User = get_user_model()
 
-from .forms import Login_Form, UserCreateForm, User_Update_Form
+from .forms import Login_Form, User_Update_Form, UserCreateForm
+
+# UserRegistrationForm
 
 
 # Register new user
 def register_user(request):
+    if request.user.is_authenticated:
+        return redirect("shop:products")
     if request.method == "POST":
         form = UserCreateForm(request.POST)
 
@@ -24,12 +30,13 @@ def register_user(request):
             user = User.objects.create_user(
                 username=user_username, email=user_email, password=user_password
             )
-
+            # Make user inactive until they click link to token in email
             user.is_active = False
-
             send_email(user)
 
             return redirect("/account/email-verification-sent/")
+            # return redirect("shop:products")
+            # return HttpResponseRedirect(reverse("account:login"))
     else:
         form = UserCreateForm()
     return render(request, "account/register.html", {"form": form})

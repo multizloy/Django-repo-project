@@ -1,9 +1,23 @@
 from django import forms
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms.widgets import PasswordInput, TextInput
 
 User = get_user_model()
+
+# from django import forms
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
+
+
+# class UserRegistrationForm(UserCreationForm):
+#     email = forms.EmailField()
+#     USERNAME_FIELD = 'email'
+#     class Meta:
+#         model = User
+#         USERNAME_FIELD = 'email'
+#         fields = ["username", "email", "password1", "password2"]
 
 
 class UserCreateForm(UserCreationForm):
@@ -39,7 +53,7 @@ class Login_Form(AuthenticationForm):
 
 class User_Update_Form(forms.ModelForm):
     email = forms.EmailField(required=True)
-    
+
     def __init__(self, *args, **kwargs):
         super(User_Update_Form, self).__init__(*args, **kwargs)
 

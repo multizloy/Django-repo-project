@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "first",
+    "registration",
+    "django_email_verification",
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,29 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+def verified_callback(user):
+    user.is_active = True
+
+
+EMAIL_VERIFIED_CALLBACK = verified_callback
+EMAIL_FROM_ADDRESS = "multizloy@gmail.com"
+EMAIL_MAIL_SUBJECT = "Confirm your email {{ user.username }}"
+EMAIL_MAIL_HTML = "registration/mail_body.html"
+EMAIL_MAIL_PLAIN = "registration/mail_body.txt"
+EMAIL_MAIL_TOKEN_LIFE = 60 * 60
+EMAIL_MAIL_PAGE_TEMPLATE = "registration/confirm_template.html"
+EMAIL_PAGE_DOMAIN = "http://127.0.0.1:8000/"  # Host
+# EMAIL_MULTI_USER = True  # optional (defaults to False)
+
+# For Django Email Backend
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "multizloy@gmail.com"
+EMAIL_HOST_PASSWORD = "dthkhdwdikjagfjo"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "multizloy@gmail.com"
+SERVER_EMAIL = "multizloy@gmail.com"

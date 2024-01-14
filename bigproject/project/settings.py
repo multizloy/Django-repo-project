@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,8 @@ SECRET_KEY = "django-insecure-!k)5f9f+=*^fgeaw)f(mx*kg+q2tue^t=wpkt%0zc=lve*abd2
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+env = environ.Env()
+env.read_env(BASE_DIR / ".env")
 
 # Application definition
 
@@ -144,10 +144,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-env = environ.Env()
-env.read_env(BASE_DIR / ".env")
-env = environ.Env()
-env.read_env(BASE_DIR / ".env")
 
 
 # verification
@@ -187,20 +183,17 @@ EMAIL_MAIL_CALLBACK = email_verified_callback
 # For Django Email Backend
 # отправка на нашу почту для подтвердения
 
-print(env("EMAIL_HOST_PASSWORD"))
-print(os.environ["EMAIL_HOST_PASSWORD"])
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "multizloy@gmail.com"
-# EMAIL_HOST_PASSWORD = sc  # os.environ['password_key'] suggested
-# EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
-
+# EMAIL_HOST_PASSWORD = os.environ["FOO"]  # suggested
+EMAIL_HOST_PASSWORD = os.environ["FOO"]
+print(os.environ["FOO"])
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 
 # def verified_callback(user):
 #     user.is_active = True

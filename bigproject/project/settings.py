@@ -183,41 +183,13 @@ EMAIL_MAIL_CALLBACK = email_verified_callback
 # For Django Email Backend
 # отправка на нашу почту для подтвердения
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "multizloy@gmail.com"
-# EMAIL_HOST_PASSWORD = os.environ["FOO"]  # suggested
+
 EMAIL_HOST_PASSWORD = os.environ["FOO"]
-print(os.environ["FOO"])
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-# def verified_callback(user):
-#     user.is_active = True
-
-
-# EMAIL_VERIFIED_CALLBACK = verified_callback
-# EMAIL_MAIL_CALLBACK = verified_callback
-# EMAIL_FROM_ADDRESS = "multizloy@gmail.com"
-# EMAIL_MAIL_SUBJECT = "Confirm your email {{ user.username }}"
-# EMAIL_MAIL_HTML = "account/registration/mail_body.html"
-# EMAIL_MAIL_PLAIN = "account/registration/mail_body.txt"
-# EMAIL_MAIL_TOKEN_LIFE = 60 * 60
-# EMAIL_MAIL_PAGE_TEMPLATE = "account/registration/confirm_template.html"
-# EMAIL_PAGE_DOMAIN = "http://127.0.0.1:8000/"  # Host
-# # EMAIL_MULTI_USER = True  # optional (defaults to False)
-
-# # For Django Email Backend
-# # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = "multizloy@gmail.com"
-# # EMAIL_HOST_PASSWORD = "coaolmaypfdrpvob"
-# EMAIL_HOST_PASSWORD = ""
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = "multizloy@gmail.com"
-# SERVER_EMAIL = "multizloy@gmail.com"

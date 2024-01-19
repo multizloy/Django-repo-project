@@ -20,7 +20,7 @@
 
         <div class="container bg-white shadow-md p-5" style="width:500px; border-radius:20px;">
 
-            <form id="form">
+            <form id="form" action="{% url 'payment:complete-order' %}" method="POST">
 
                 <div>
 
@@ -69,14 +69,16 @@
                     </div>
                 </div>
                 <br>
-               <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button>
+                    {% csrf_token %}
+               <button id="complete-order-stripe" type="submit" class="btn btn-primary navbar-btn text-white" name="stripe-payment" value="stripe-payment"> &nbsp; Pay with Stripe </button>
+               {% comment %} <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button> {% endcomment %}
                 <br>
             </form>
         </div>
         <br>
     </body>
 
-
+{% comment %} 
     <!-- Ajax integration -->
 <script>
     $(document).on('submit', function(e){
@@ -112,7 +114,7 @@
 </script>
 
 
-
+ {% endcomment %}
 
 
 {% endblock %}
